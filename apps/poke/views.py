@@ -12,9 +12,9 @@ def index(request):
 def register(request):
 	valid = User.userManager.validate(request.POST['username'], request.POST['email'], request.POST['pass1'], request.POST['pass2'])
 	if valid[0]==True:
-		request.session['currUseruserName'] = valid[1].username
-		request.session['currUserID'] = valid[1].id
-		return redirect(reverse('trips_trips'))
+		request.session['username'] = valid[1].username
+		request.session['id'] = valid[1].id
+		return redirect(reverse('poke_papi'))
 	else:
 		if valid[1] == "name":
 			messages.info(request, "Name must be at least 3 characters")
@@ -33,11 +33,17 @@ def register(request):
 def login(request):
 	if User.userManager.login(request.POST['username'], request.POST['pass1']) == True:
 		user = User.objects.filter(username=request.POST['username'])
-		request.session['currUseruserName'] = user[0].username
-		request.session['currUserID'] = user[0].id
-		return redirect(reverse('trips_trips'))
+		request.session['username'] = user[0].username
+		request.session['id'] = user[0].id
+		return redirect(reverse('poke_dashboard'))
 	else:
 		messages.warning(request, 'Username and Password do not match')
-		return redirect(reverse('trips_index'))
+		return redirect(reverse('poke_index'))
+
+def papi(request):
+	return render(request, 'poke/papi.html')
+
+def dashboard(request):
+	return render(request, 'poke/dashboard.html')
 
 
