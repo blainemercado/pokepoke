@@ -9,6 +9,8 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$')
 
 # Create your models here.
 
+class UserManager(models.Manager):
+	pass
 
 class Pokemon(models.Model):
 	name = models.CharField(max_length=250)
@@ -24,6 +26,7 @@ class Pokemon(models.Model):
 	atk4power = models.PositiveSmallIntegerField(null=True)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
+	userManager = UserManager()
 
 
 class User(models.Model):
@@ -36,5 +39,5 @@ class User(models.Model):
 	p3 = models.ForeignKey(Pokemon, related_name="Pokemon3")
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
-	# userManager = UserManager()
+	userManager = UserManager()
 	# objects = models.Manager()

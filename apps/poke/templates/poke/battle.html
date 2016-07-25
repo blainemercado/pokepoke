@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Battlefield</title>
+</head>
+<body>
+<div id="menubar">
+HOME
+LOGOUT
+</div>
+EXIT
+<div id="opponent">
+</div>
+
+<div id="user">
+	<!-- <img id="pokemon1img" src="pokemon1.png">
+	<div id="atk1">
+		<form action="/atk1" method="post">
+			<input type="submit" name="submit" value="{{ userPoke1.atk1name }}: {{ user.Poke1.atk1power }}">
+		</form>
+	</div>
+	<div id="atk2">
+		<form action="/atk2" method="post">
+			<input type="submit" name="submit" value="{{ userPoke1.atk2name }}: {{ user.Poke1.atk2power }}">
+		</form>
+	</div>
+	<div id="atk3">
+		<form action="/atk3" method="post">
+			<input type="submit" name="submit" value="{{ userPoke1.atk3name }}: {{ user.Poke1.atk3power }}">
+		</form>
+	</div>
+	<div id="atk4">
+		<form action="/atk4" method="post">
+			<input type="submit" name="submit" value="{{ userPoke1.atk4name }}: {{ user.Poke1.atk4power }}">
+		</form>
+	</div> -->
+
+	{% for x in 3 %}
+		<form action="/atk1" method="post">
+			<input type="submit" name="submit" value="{{ x.p1.atk1name }}: {{ x.p1.atk1power }}">
+		</form>
+	{% endfor %}
+
+</div>
+
+	<script type="text/javascript">
+		
+		var userHP = 0;
+		var opponentHP = 0;
+
+	// 	function battle(){
+	// 		var poke = '';
+	// 		for( var i=1; i<4;i++){
+	// 			poke = (<img id="pokemon"+i+"img" src="pokemon"+i+".png">
+	// <div id="atk1">
+	// 	<form action="/atk1" method="post">
+	// 		<input type="submit" name="submit" value="{{ userPoke1.atk1name }}: {{ user.Poke1.atk1power }}">
+	// 	</form>
+	// </div>)
+	// 		}
+	// 		document.getElementById("user").innerHTML = poke;
+	// 	}
+
+	</script>
+</body>
+</html>
