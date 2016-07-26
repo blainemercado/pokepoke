@@ -3,6 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>Battlefield</title>
+	<link rel="stylesheet" type="text/css" href="static/poke/css/battle.css">
+	<link rel="stylesheet" type="text/css" href="static/poke/jquery-3.0.0.js">
 </head>
 <body>
 <div id="menubar">
@@ -11,57 +13,56 @@ LOGOUT
 </div>
 EXIT
 <div id="opponent">
+opponent Pokemon
 </div>
 
 <div id="user">
-	<!-- <img id="pokemon1img" src="pokemon1.png">
-	<div id="atk1">
-		<form action="/atk1" method="post">
-			<input type="submit" name="submit" value="{{ userPoke1.atk1name }}: {{ user.Poke1.atk1power }}">
-		</form>
-	</div>
-	<div id="atk2">
-		<form action="/atk2" method="post">
-			<input type="submit" name="submit" value="{{ userPoke1.atk2name }}: {{ user.Poke1.atk2power }}">
-		</form>
-	</div>
-	<div id="atk3">
-		<form action="/atk3" method="post">
-			<input type="submit" name="submit" value="{{ userPoke1.atk3name }}: {{ user.Poke1.atk3power }}">
-		</form>
-	</div>
-	<div id="atk4">
-		<form action="/atk4" method="post">
-			<input type="submit" name="submit" value="{{ userPoke1.atk4name }}: {{ user.Poke1.atk4power }}">
-		</form>
-	</div> -->
+	<!-- will eventually be like <img src="{{ userPoke1.img }}" -->
+	<img src="static/poke/images/pokemon1.png">
+	<form id="pokemonAttacks" action="{{ userPoke1.id }}/atk" method="post">
+		<input type="submit" name="atk1" onclick="displayATK()" value="{{ x.p1.atk1name }}: {{ x.p1.atk1power }}">
 
-	{% for x in 3 %}
-		<form action="/atk1" method="post">
-			<input type="submit" name="submit" value="{{ x.p1.atk1name }}: {{ x.p1.atk1power }}">
-		</form>
-	{% endfor %}
+		<input type="submit" name="atk2" value="{{ x.p1.atk2name }}: {{ x.p1.atk2power }}">
+
+		<input type="submit" name="atk3" value="{{ x.p1.atk3name }}: {{ x.p1.atk3power }}">
+
+		<input type="submit" name="atk4" value="{{ x.p1.atk4name }}: {{ x.p1.atk4power }}">
+	</form>
 
 </div>
 
-	<script type="text/javascript">
+<div id="userATK">
+user ATK
+</div>
+<div id="opponentATK">
+opponent ATK
+</div>
+<div id="otherPokemon2">
+</div>
+<div id="otherPokemon3">
+
+
+	<script>
 		
-		var userHP = 0;
-		var opponentHP = 0;
+	var userHP = 0;
+	var opponentHP = 0;
 
-	// 	function battle(){
-	// 		var poke = '';
-	// 		for( var i=1; i<4;i++){
-	// 			poke = (<img id="pokemon"+i+"img" src="pokemon"+i+".png">
-	// <div id="atk1">
-	// 	<form action="/atk1" method="post">
-	// 		<input type="submit" name="submit" value="{{ userPoke1.atk1name }}: {{ user.Poke1.atk1power }}">
-	// 	</form>
-	// </div>)
-	// 		}
-	// 		document.getElementById("user").innerHTML = poke;
-	// 	}
+	var Pokemon1 = user.Poke1;
+	var Pokemon2 = user.Poke2;
+	var Pokemon3 = user.Poke3;
 
+	function OtherPokemons(){
+		document.getElementById("otherPokemon2").innerHTML = "<img src='static/poke/images/pokemon2.png'>";
+		document.getElementById("otherPokemon3").innerHTML = "<img src='static/poke/images/pokemon3.png'>";
+	}
+	OtherPokemons();
+
+	function displayATK(){
+		document.getElementById("userATK").innerHTML = "<h1>Picka-CHUUUU!!!</h1>"
+	}
+
+	
+	
 	</script>
 </body>
 </html>

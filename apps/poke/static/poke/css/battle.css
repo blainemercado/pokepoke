@@ -1,0 +1,27 @@
+*{
+	margin: 0px;
+	border: 0px;
+}
+
+div#opponent{
+	height: 200px;
+	width: 200px;
+	margin: auto;
+}
+div#userATK{
+	height: 100px;
+	width: 200px;
+}
+div#opponentATK{
+	height: 100px;
+	width: 200px;
+	margin-left: 100px;
+}
+div#user, div#userATK, div#opponentATK{
+	display: inline-block;
+	vertical-align: top;
+}
+div#otherPokemon2, div#otherPokemon3{
+	display: block;
+	vertical-align: top;
+}

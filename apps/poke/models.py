@@ -59,9 +59,6 @@ class UserManager(models.Manager):
 
 # Create your models here.
 
-class UserManager(models.Manager):
-	pass
-
 class Pokemon(models.Model):
 	name = models.CharField(max_length=250)
 	hp = models.PositiveSmallIntegerField()
@@ -90,3 +87,4 @@ class User(models.Model):
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 	userManager = UserManager()
+	objects = models.Manager()
