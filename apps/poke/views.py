@@ -35,7 +35,7 @@ def login(request):
 		user = User.objects.filter(username=request.POST['username'])
 		request.session['username'] = user[0].username
 		request.session['id'] = user[0].id
-		return redirect(reverse('poke_dashboard'))
+		return redirect('dashboard/'+str(request.session['id']))
 	else:
 		messages.warning(request, 'Username and Password do not match')
 		return redirect(reverse('poke_index'))
@@ -54,11 +54,23 @@ def pokedex(request):
 		atk1power= request.POST['atk1power']
 		full=Pokemon.pokemonManager.add(name,hp,poketype,atk1name,atk1power,id)
 		if full:
-			return redirect(reverse('poke_dashboard'))
+			return redirect(reverse('dashboard/'+str(request.session['id'])))
 		messages.info(request, 'You added '+ name)
 	return redirect(reverse ('poke_papi'))	
 
-def dashboard(request):
-	return render(request, 'poke/dashboard.html')
+def dashboard(request, id):
+	context = {
+		"user": User.objects.filter(id=id)
+	}
+	return render(request, 'poke/dashboard.html', context)
+
+def rivals(request):
+
+	return render(request, 'poke/rivals.html')
+
+def logout(request):
+	del request.session['id']
+	del request.session['username']
+	return redirect('/')
 
 
