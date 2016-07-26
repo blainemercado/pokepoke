@@ -59,6 +59,7 @@ def pokedex(request):
 	return redirect(reverse ('poke_papi'))	
 
 def dashboard(request):
+	
 	return render(request, 'poke/dashboard.html')
 
 
