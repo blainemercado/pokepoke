@@ -45,9 +45,14 @@
 	font-size: 30px;
 	font-family: fantasy;
 	color: darkred;
-	}	
+	}
+	h3 {
+	font-size: 20px;
+	font-family: fantasy;
+	color: darkred;
+	}		
 	#userInfo {
-		display: inline-block;
+		/*display: inline-block;*/
 		margin: 30px;
 		background: linear-gradient(#FAFAFA, #E0E0E0);
 		border-radius: 10px;
@@ -61,17 +66,24 @@
 			display: block;
 			font-size: 20px;
 			color: darkgreen;
+			width: 200px;
+			margin-left: 294px;
+
 		}
 	#roster {
-		display: inline-block;
+		/*display: inline-block;*/
 		vertical-align: top;
 		margin: 30px;
 		background: linear-gradient(#FAFAFA, #E0E0E0);
 		border-radius: 10px;
 		border: 1px solid grey;
-		padding: 25px;
+		padding: 15px;
 	}
+		#roster .poke {
+			display: inline-block;
+			margin: 15px;
+		}
 		#roster img {
-			height: 250px;
-			width: 250px;
+			height: 200px;
+			width: 200px;
 		}

@@ -26,7 +26,20 @@
 		</div>
 		<div id="roster">
 			<h2>Roster:</h2>
-			<img src="{% static 'poke/images/bulbasaur.png' %}">
+			
+			<div class="poke">
+				<h3>{{user.p1.name}}</h3>
+				<img src="{% static p1 %}" alt="Pokemon character">
+			</div>
+			<div class="poke">
+				<h3>{{user.p2.name}}</h3>
+				<img src="{% static p2 %}" alt="Pokemon character">
+			</div>
+			<div class="poke">
+				<h3>{{user.p3.name}}</h3>
+				<img src="{% static p3 %}" alt="Pokemon character">
+			</div>
+			
 		</div>
 	</div>
 	{% endfor %}

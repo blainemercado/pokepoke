@@ -54,13 +54,20 @@ def pokedex(request):
 		atk1power= request.POST['atk1power']
 		full=Pokemon.pokemonManager.add(name,hp,poketype,atk1name,atk1power,id)
 		if full:
-			return redirect(reverse('dashboard/'+str(request.session['id'])))
+			return redirect('/dashboard/'+str(request.session['id']))
+		else:
+			messages.info(request, "your roster is already full")
+			return redirect('/dashboard/'+str(request.session['id']))
 		messages.info(request, 'You added '+ name)
 	return redirect(reverse ('poke_papi'))	
 
 def dashboard(request, id):
+	user = User.objects.filter(id=id)
 	context = {
-		"user": User.objects.filter(id=id)
+		"user": User.objects.filter(id=id),
+		"p1": "poke/images/" + str(user[0].p1.pokeid) + ".png",
+		"p2": "poke/images/" + str(user[0].p2.pokeid) + ".png",
+		"p3": "poke/images/" + str(user[0].p3.pokeid) + ".png"
 	}
 	return render(request, 'poke/dashboard.html', context)
 
