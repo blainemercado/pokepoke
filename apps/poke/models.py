@@ -80,10 +80,12 @@ class PokemonManager(models.Manager):
 			print user.p3.name
 			print 'user3'
 			user.save()
-			return True		
+			return True
+		return False		
 class Pokemon(models.Model):
 	name = models.CharField(max_length=250)
 	hp = models.PositiveSmallIntegerField()
+	pokeid = models.PositiveSmallIntegerField(null=True)
 	poketype = models.CharField(max_length=250)
 	atk1name = models.CharField(max_length=250)
 	atk1power = models.PositiveSmallIntegerField()
