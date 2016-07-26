@@ -41,7 +41,22 @@ def login(request):
 		return redirect(reverse('poke_index'))
 
 def papi(request):
+	
 	return render(request, 'poke/papi.html')
+
+def pokedex(request):
+	if request.method=="POST":
+		id= request.session['id']
+		name= request.POST['name']
+		hp= request.POST['hp']
+		poketype= request.POST['poketype']
+		atk1name= request.POST['atk1name']
+		atk1power= request.POST['atk1power']
+		full=Pokemon.pokemonManager.add(name,hp,poketype,atk1name,atk1power,id)
+		if full:
+			return redirect(reverse('poke_dashboard'))
+		messages.info(request, 'You added '+ name)
+	return redirect(reverse ('poke_papi'))	
 
 def dashboard(request):
 	return render(request, 'poke/dashboard.html')
