@@ -1,9 +1,51 @@
 <html>
 <head>
+	<meta charset="utf-8">
 	<title>Dashboard</title>
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'poke/css/dash.css' %}">
+	
 </head>
 <body>
-<h1> Welcome to the dashboard </h1>
-
+	{% for user in user %}
+	<div id="container">
+		<div id="nav">
+			<a id="home" href="{%url 'poke_dashboard' id=user.id %}">Dashboard</a>
+			<div id="logout">
+				<a href="{%url 'poke_logout' %}">Logout</a>
+			</div>
+		</div>
+		<h1> Welcome to the dashboard </h1>
+		<div id="userInfo">
+			<h2>{{user.username}}</h2>
+			<p>Level: {{user.lvl}}</p>
+			<p>Win/Loss: Not yet added</p>
+			{%if request.session.id == user.id%}
+			<a href="*****URL*****">Go Hunting</a>
+			<a href="/rivals">Scout Rivals</a>
+			{%endif%}
+			{%if request.session.id != user.id%}
+			<a href="/">Challenge Rival</a>
+			{%endif%}
+		</div>
+		<div id="roster">
+			<h2>Roster:</h2>
+			
+			<div class="poke">
+				<h3>{{user.p1.name}}</h3>
+				<img src="{% static p1 %}" alt="Pokemon character">
+			</div>
+			<div class="poke">
+				<h3>{{user.p2.name}}</h3>
+				<img src="{% static p2 %}" alt="Pokemon character">
+			</div>
+			<div class="poke">
+				<h3>{{user.p3.name}}</h3>
+				<img src="{% static p3 %}" alt="Pokemon character">
+			</div>
+			
+		</div>
+	</div>
+	{% endfor %}
 </body>
 </html>

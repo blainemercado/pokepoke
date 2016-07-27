@@ -13,7 +13,7 @@ def index(request):
 def prebattle(request):
 	request.session['count'] = 1
 	request.session['OpCount'] = 1
-	opponent_id = 3
+	opponent_id = 3 #CHANGE THIS TO OPPONENT ID
 	opponent = User.userManager.get(id=opponent_id)
 
 	request.session['oppPoke1'] = opponent.p1
@@ -91,7 +91,7 @@ def prebattlepick(request):
 	return render(request, "poke/prebattle.html")
 
 def battle(request):
-	id = 4
+	opponent_id = 3 #CHANGE THIS TO OPPONENT ID
 	user_id = request.session['id']
 
 	context = {
@@ -100,16 +100,15 @@ def battle(request):
 		"userPoke2": User.userManager.get(id=user_id).p2,
 		"userPoke3": User.userManager.get(id=user_id).p3,
 
-		"opponent": User.userManager.get(id=id),
-		"opponentPoke1": User.userManager.get(id=id).p1,
-		"opponentPoke2": User.userManager.get(id=id).p2,
-		"opponentPoke3": User.userManager.get(id=id).p3,	
+		"opponent": User.userManager.get(id=opponent_id),
+		"opponentPoke1": User.userManager.get(id=opponent_id).p1,
+		"opponentPoke2": User.userManager.get(id=opponent_id).p2,
+		"opponentPoke3": User.userManager.get(id=opponent_id).p3,	
 	}
 
 	return render(request, 'poke/battle.html', context)
 
 def userATK(request):
-	opponent_id = 3
 
 	user_id = request.session['id']
 
@@ -229,3 +228,12 @@ def youwon(request):
 
 def youlose(request):
 	return redirect('/dashboard')
+
+def rivals(request):
+	return render(request, "poke/rivals.html")
+
+def logout(request):
+	del request.session['id']
+	del request.session['username']
+
+	return redirect('/index')

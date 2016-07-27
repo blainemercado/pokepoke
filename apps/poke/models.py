@@ -60,32 +60,33 @@ class UserManager(models.Manager):
 # Create your models here.
 
 class PokemonManager(models.Manager):
-	def add(self, name, hp, poketype,atk1name,atk1power,id):
+	def add(self, pokeid, name, hp, poketype,atk1name,atk1power,id):
 		user= User.objects.get(id= id)
-		#print user.p1.name
+		print pokeid
 		if user.p1 is None:
-			pokemon1= Pokemon.objects.create(name=name, hp=hp, poketype=poketype,atk1name=atk1name, atk1power= atk1power)
+			pokemon1= Pokemon.objects.create(pokeid=pokeid,name=name, hp=hp, poketype=poketype,atk1name=atk1name, atk1power= atk1power)
 			user.p1= pokemon1
 			user.save()
 			print user.p1.name
 			print "user1"
 		elif user.p2 is None:
-			pokemon2= Pokemon.objects.create(name=name, hp=hp, poketype=poketype,atk1name=atk1name, atk1power= atk1power)
+			pokemon2= Pokemon.objects.create(pokeid=pokeid, name=name, hp=hp, poketype=poketype,atk1name=atk1name, atk1power= atk1power)
 			user.p2= pokemon2
 			print user.p2.name
 			print "User2"
 			user.save()
 		elif user.p3 is None:
-			pokemon3= Pokemon.objects.create(name=name, hp=hp, poketype=poketype,atk1name=atk1name, atk1power= atk1power)
+			pokemon3= Pokemon.objects.create(pokeid=pokeid, name=name, hp=hp, poketype=poketype,atk1name=atk1name, atk1power= atk1power)
 			user.p3= pokemon3
 			print user.p3.name
 			print 'user3'
 			user.save()
-			return True		
-
+			return True
+			
 class Pokemon(models.Model):
 	name = models.CharField(max_length=250)
 	hp = models.PositiveSmallIntegerField()
+	pokeid = models.PositiveSmallIntegerField(null=True)
 	poketype = models.CharField(max_length=250)
 	atk1name = models.CharField(max_length=250)
 	atk1power = models.PositiveSmallIntegerField()
