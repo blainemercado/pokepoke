@@ -51,13 +51,13 @@
 	<img src="static/poke/images/pokemon1.png">
 	<form id="pokemonAttacks" action="/atk" method="post">
 	{%csrf_token%}
-		<input type="submit" name="atk1" value="{{ request.session.initPokemon.atk1name }}: {{ request.session.initPokemon.atk1power }}">
+		<input type="submit" name="atk1" value="{{ request.session.initPokemon.atk1name }}: {{ request.session.initPokemon.atk1power }} power">
 	{% if atk2name != Null %}
-		<input type="submit" name="atk2" value="{{ request.session.initPokemon.atk2name }}: {{ request.session.initPokemon.atk2power }}">
+		<input type="submit" name="atk2" value="{{ request.session.initPokemon.atk2name }}: {{ request.session.initPokemon.atk2power }} power">
 	{% if atk3name != Null %}
-		<input type="submit" name="atk3" value="{{ request.session.initPokemon.atk3name }}: {{ request.session.initPokemon.atk3power }}">
+		<input type="submit" name="atk3" value="{{ request.session.initPokemon.atk3name }}: {{ request.session.initPokemon.atk3power }} power">
 	{% if atk4name != Null %}
-		<input type="submit" name="atk4" value="{{ request.session.initPokemon.atk4name }}: {{ request.session.initPokemon.atk4power }">
+		<input type="submit" name="atk4" value="{{ request.session.initPokemon.atk4name }}: {{ request.session.initPokemon.atk4power }} power">
 	{% endif %}
 	{% endif %}
 	{% endif %}
