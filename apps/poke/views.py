@@ -221,7 +221,10 @@ def pokedex(request):
 	return redirect(reverse ('poke_papi'))	
 
 def dashboard(request):
-	return render(request, 'poke/dashboard.html')
+	context = {
+		"user": User.objects.filter(id=request.session['id'])
+	}
+	return render(request, 'poke/dashboard.html', context)
 
 def youwon(request):
 	return redirect('/dashboard')
