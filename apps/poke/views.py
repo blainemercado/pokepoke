@@ -52,9 +52,16 @@ def pokedex(request):
 		name= request.POST['name']
 		hp= request.POST['hp']
 		poketype= request.POST['poketype']
-		atk1name= request.POST['atk1name']
 		atk1power= request.POST['atk1power']
-		full=Pokemon.pokemonManager.add(pokeid,name,hp,poketype,atk1name,atk1power,id)
+		atk2power= request.POST['atk2power']
+		atk3power= request.POST['atk3power']
+		atk4power= request.POST['atk3power']
+		atk1name= request.POST['atk1name']
+		atk2name= request.POST['atk2name']
+		atk3name= request.POST['atk3name']
+		atk4name= request.POST['atk4name']
+
+		full=Pokemon.pokemonManager.add(pokeid,name,hp,poketype,atk1power,atk2power,atk3power,atk4power,atk1name,atk2name,atk3name,atk4name,id)
 		if full:
 			return redirect('/dashboard/'+str(request.session['id']))
 		# else:

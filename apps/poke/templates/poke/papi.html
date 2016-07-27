@@ -27,10 +27,18 @@ $(document).ready(function(){
 							poketype= res.types[0].type.name
 							//string6="<p><strong>Ability or Trait: </strong>" + res.abilities[0].ability.name +"</p>"
 							attack= "<p><strong> Attack: </strong>" + res.stats[4].base_stat + "</p>"
-							atk1power= res.stats[4].base_stat
+							atk1power= res.stats[0].base_stat
+							atk2power= res.stats[3].base_stat
+							console.log(atk2power)
+							atk3power= res.stats[2].base_stat
+							atk4power= res.stats[1].base_stat
 							health= "<p><strong> Health: </strong>" + res.stats[5].base_stat + "</p>"
 							hp= res.stats[5].base_stat
 							atk1name= res.moves[0].move.name
+							console.log(atk1name+ "This is the name of attack2")
+							atk2name= res.moves[3].move.name
+							atk3name= res.moves[2].move.name
+							atk4name= res.moves[1].move.name
 							//sprite= "<p><strong> Image: </strong>" + res.sprites.front_shiny + "</p>"
 							$('#container1').html(name+type+attack+health);
 						})
@@ -47,7 +55,13 @@ $(document).ready(function(){
 							  	"<input type= 'hidden' name= 'poketype' value=" + poketype + ">" +
 							  	"<input type= 'hidden' name= 'hp' value=" + hp + ">" +
 							  	"<input type= 'hidden' name= 'atk1power' value=" + atk1power + ">" +
+							  	"<input type= 'hidden' name= 'atk2power' value=" + atk2power + ">" +
+							  	"<input type= 'hidden' name= 'atk3power' value=" + atk3power + ">" +
+							  	"<input type= 'hidden' name= 'atk4power' value=" + atk4power + ">" +
 							  	"<input type= 'hidden' name= 'atk1name' value=" + atk1name + ">" +
+							  	"<input type= 'hidden' name= 'atk2name' value=" + atk2name + ">" +
+							  	"<input type= 'hidden' name= 'atk3name' value=" + atk3name + ">" +
+							  	"<input type= 'hidden' name= 'atk4name' value=" + atk4name + ">" +
 							  	"<input type= 'hidden' name= 'pokeid' value=" + pokemon + ">" +
 								"<input type= 'submit' value= 'Choose this pokemon'>" +
 								"{% csrf_token %}" +
