@@ -8,6 +8,7 @@ urlpatterns = [
 	url(r'^papi$', views.papi, name = 'poke_papi'),
 	url(r'^dashboard$', views.dashboard, name = 'poke_dashboard'),
 	url(r'^prebattle$', views.prebattle, name = 'poke_lineup'),
+	url(r'^preprebattle/(?P<id>\d+)$', views.preprebattle, name = 'poke_prelineup'),
 	url(r'^prebattlepick$', views.prebattlepick, name = 'poke_battlepick'),
 	url(r'^battle$', views.battle, name = 'poke_battle'),
 	url(r'^atk$', views.userATK, name = 'poke_atk'),

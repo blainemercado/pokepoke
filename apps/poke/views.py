@@ -9,6 +9,11 @@ import re
 def index(request):
 	return render(request, 'poke/index.html')
 
+def preprebattle(request, id):
+	request.session['opponent_id'] = id
+
+	return redirect('/prebattle')
+
 def prebattle(request):
 
 	request.session['oppATKchoice'] = "TAUNT"
@@ -169,22 +174,27 @@ def OppATK(request):
 	user_id = request.session['id']
 	randomNum = randint(0,100)
 	print ("randomNum:", randomNum)
+	print "******************"
+	print ("opponent atk choice 1:", request.session['oppPoke1'].atk1name)
+	print ("opponent atk choice 2:", request.session['oppPoke1'].atk2name)
+	print ("opponent atk choice 3:", request.session['oppPoke1'].atk3name)
+	print ("opponent atk choice 4:", request.session['oppPoke1'].atk4name)
 	if randomNum < 25:
 		theirAttack = User.userManager.get(id=request.session['opponent_id']).p1.atk1power
 		print ("theirAttack 1:", theirAttack)
-		request.session['oppATKchoice'] = User.userManager.get(id=request.session['opponent_id']).p1.atk1name
+		request.session['oppATKchoice'] = request.session['oppPoke1'].atk1name
 	elif randomNum >24 and randomNum<51:
 		theirAttack = User.userManager.get(id=request.session['opponent_id']).p1.atk2power
 		print ("theirAttack 2:", theirAttack)
-		request.session['oppATKchoice'] = User.userManager.get(id=request.session['opponent_id']).p1.atk2name
+		request.session['oppATKchoice'] = request.session['oppPoke1'].atk2name
 	elif randomNum >50 and randomNum<76:
 		theirAttack = User.userManager.get(id=request.session['opponent_id']).p1.atk3power
 		print ("theirAttack 3:", theirAttack)
-		request.session['oppATKchoice'] = User.userManager.get(id=request.session['opponent_id']).p1.atk3name
+		request.session['oppATKchoice'] = request.session['oppPoke1'].atk3name
 	elif randomNum >75:
 		theirAttack = User.userManager.get(id=request.session['opponent_id']).p1.atk4power
 		print ("theirAttack 4:", theirAttack)
-		request.session['oppATKchoice'] = User.userManager.get(id=request.session['opponent_id']).p1.atk4name
+		request.session['oppATKchoice'] = request.session['oppPoke1'].atk4name
 
 	if request.session['MyHP'] > 0:
 		request.session['MyHP'] -= (randint(0, theirAttack/2))
