@@ -13,8 +13,9 @@ def index(request):
 def prebattle(request):
 	request.session['count'] = 1
 	request.session['OpCount'] = 1
-	opponent_id = 3 #CHANGE THIS TO OPPONENT ID
-	opponent = User.userManager.get(id=opponent_id)
+	print request.session['oppenent_id']
+	#opponent_id = request.session['opponent_id'] #CHANGE THIS TO OPPONENT ID
+	opponent = User.userManager.get(id=request.session['oppenent_id'])
 
 	request.session['oppPoke1'] = opponent.p1
 	request.session['oppPoke2'] = opponent.p2
@@ -91,7 +92,6 @@ def prebattlepick(request):
 	return render(request, "poke/prebattle.html")
 
 def battle(request):
-	opponent_id = 3 #CHANGE THIS TO OPPONENT ID
 	user_id = request.session['id']
 
 	context = {
@@ -100,10 +100,10 @@ def battle(request):
 		"userPoke2": User.userManager.get(id=user_id).p2,
 		"userPoke3": User.userManager.get(id=user_id).p3,
 
-		"opponent": User.userManager.get(id=opponent_id),
-		"opponentPoke1": User.userManager.get(id=opponent_id).p1,
-		"opponentPoke2": User.userManager.get(id=opponent_id).p2,
-		"opponentPoke3": User.userManager.get(id=opponent_id).p3,	
+		"opponent": User.userManager.get(id=request.session['oppenent_id']),
+		"opponentPoke1": User.userManager.get(id=request.session['oppenent_id']).p1,
+		"opponentPoke2": User.userManager.get(id=request.session['oppenent_id']).p2,
+		"opponentPoke3": User.userManager.get(id=request.session['oppenent_id']).p3,	
 	}
 
 	return render(request, 'poke/battle.html', context)
@@ -140,11 +140,10 @@ def userATK(request):
 		return redirect('/youwon')
 
 def OppATK(request):
-	opponent_id = 3
 
 	user_id = request.session['id']
 
-	theirAttack = User.userManager.get(id=opponent_id).p1.atk1power
+	theirAttack = User.userManager.get(id=request.session['oppenent_id']).p1.atk1power
 
 	if request.session['MyHP'] > 0:
 		request.session['MyHP'] -= (randint(0, theirAttack/2))
@@ -228,11 +227,27 @@ def pokedex(request):
 		messages.info(request, 'You added '+ name)
 	return redirect(reverse ('poke_papi'))	
 
-def dashboard(request):
+def otherdashboard(request,id):
+	user= User.objects.filter(id=id)
+	request.session['oppenent_id']= id
+	print request.session['oppenent_id']
 	context = {
-		"user": User.objects.filter(id=request.session['id'])
-	}
-	return render(request, 'poke/dashboard.html', context)
+ 		"p1": "poke/images/" + str(user[0].p1.pokeid) + ".png",
+ 		"p2": "poke/images/" + str(user[0].p2.pokeid) + ".png",
+ 		"p3": "poke/images/" + str(user[0].p3.pokeid) + ".png",
+ 		"user": User.objects.filter(id=id)
+  	}
+	return render(request, 'poke/otherdashboard.html', context)
+
+def dashboard(request):
+	user= User.objects.filter(id=request.session['id'])
+	context = {
+ 		"p1": "poke/images/" + str(user[0].p1.pokeid) + ".png",
+ 		"p2": "poke/images/" + str(user[0].p2.pokeid) + ".png",
+ 		"p3": "poke/images/" + str(user[0].p3.pokeid) + ".png",
+ 		"user": User.objects.filter(id=request.session['id'])
+  	}
+	return render(request, 'poke/dashboard.html', context)	
 
 def youwon(request):
 	return redirect('/dashboard')
@@ -241,7 +256,10 @@ def youlose(request):
 	return redirect('/dashboard')
 
 def rivals(request):
-	return render(request, "poke/rivals.html")
+	context={
+ 	"users": User.objects.exclude(id=request.session['id'])#, "pokemon": 'test'
+ 	}
+ 	return render(request, 'poke/rivals.html', context)
 
 def logout(request):
 
