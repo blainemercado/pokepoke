@@ -1,0 +1,46 @@
+{% load staticfiles %}
+
+<html>
+<head>
+	<title>Rivals</title>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+</head>
+<body>
+<style> 
+h1{
+	text-align: center;
+	margin-bottom: 50px;
+}		
+
+</style>
+
+<h1> Rivals in the area </h1>	
+
+<div class="container">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>User level</th>
+        <td> First Pokemon </td>
+        <th>Challenge?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+   			{%for user in users%}
+		<tr>
+			<td><a href='dashboard/{{user.id}}'> {{user.username}} </a> </td>
+			<td> {{user.lvl}} </td>
+			<td> {{user.p1.name}} </td>
+			<td> <a href='/prebattle'> Lets do this! </a> </td>
+		</tr>	
+		{%endfor%}
+      </tr>
+    </tbody>
+  </table>
+</div>	
+</table>		
+</body>
+</html>

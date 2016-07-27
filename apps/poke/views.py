@@ -46,18 +46,20 @@ def papi(request):
 
 def pokedex(request):
 	if request.method=="POST":
+		pokeid= request.POST['pokeid']
+		print request.POST['pokeid']
 		id= request.session['id']
 		name= request.POST['name']
 		hp= request.POST['hp']
 		poketype= request.POST['poketype']
 		atk1name= request.POST['atk1name']
 		atk1power= request.POST['atk1power']
-		full=Pokemon.pokemonManager.add(name,hp,poketype,atk1name,atk1power,id)
+		full=Pokemon.pokemonManager.add(pokeid,name,hp,poketype,atk1name,atk1power,id)
 		if full:
 			return redirect('/dashboard/'+str(request.session['id']))
-		else:
-			messages.info(request, "your roster is already full")
-			return redirect('/dashboard/'+str(request.session['id']))
+		# else:
+			# messages.info(request, "your roster is already full")
+			# return redirect('/dashboard/'+str(request.session['id']))
 		messages.info(request, 'You added '+ name)
 	return redirect(reverse ('poke_papi'))	
 
@@ -73,8 +75,12 @@ def dashboard(request, id):
 	return render(request, 'poke/dashboard.html', context)
 
 def rivals(request):
-
-	return render(request, 'poke/rivals.html')
+	# User.objects.filter(id='')
+	
+	context={
+	"users": User.objects.exclude(id=request.session['id'])#, "pokemon": 'test'
+	}
+	return render(request, 'poke/rivals.html', context)
 
 def logout(request):
 	del request.session['id']

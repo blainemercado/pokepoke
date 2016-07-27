@@ -20,9 +20,13 @@
 			<h2>{{user.username}}</h2>
 			<p>Level: {{user.lvl}}</p>
 			<p>Win/Loss: Not yet added</p>
+			{%if request.session.id == user.id%}
 			<a href="*****URL*****">Go Hunting</a>
-			<a href="*****NEED URL*****">Scout Rivals</a>
-			<a href="{%url 'poke_rivals' %}">Challenge Your Rivals</a>
+			<a href="/rivals">Scout Rivals</a>
+			{%endif%}
+			{%if request.session.id != user.id%}
+			<a href="/">Challenge Rival</a>
+			{%endif%}
 		</div>
 		<div id="roster">
 			<h2>Roster:</h2>
