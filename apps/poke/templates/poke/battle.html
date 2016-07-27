@@ -9,8 +9,8 @@
 
 	$(document).ready(function(){
 		$('[name=atk1').on("click", function(){
-			$('#userATK').html("<h1>{{ userPoke1.name }} uses {{ userPoke1.atk1name }}!!!</h1>");
-			$('#opponentATK').html("<h1>{{ opponentPoke1.name }} uses {{ opponentPoke1.atk1name }}!!!</h1>");
+			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk1name }}!!!</h1>");
+			$('#opponentATK').html("<h1>{{ request.session.oppPoke1.name }} uses {{ request.session.oppPoke1.atk1name }}!!!</h1>");
 			
 			$('#pokemonAttacks').submit(function (e) {
 			    var form = this;
