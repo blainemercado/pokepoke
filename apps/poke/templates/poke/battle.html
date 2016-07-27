@@ -34,12 +34,11 @@
 <body>
 
 <div id="nav">
-	<a id="home" href="{%url 'poke_dashboard' id=user.id %}">Dashboard</a>
+	<a id="home" href="{%url 'poke_dashboard' %}">Dashboard</a>
 	<div id="logout">
 		<a href="/">Logout</a>
 	</div>
 </div>
-EXIT
 <div id="opponent">
 {{ request.session.oppPoke1.name }}
 <p>HP: {{ request.session.currentHP }}</p>
@@ -52,13 +51,13 @@ EXIT
 	<img src="static/poke/images/pokemon1.png">
 	<form id="pokemonAttacks" action="/atk" method="post">
 	{%csrf_token%}
-		<input type="submit" name="atk1" value="{{ userPoke1.atk1name }}: {{ userPoke1.atk1power }}">
+		<input type="submit" name="atk1" value="{{ request.session.initPokemon.atk1name }}: {{ request.session.initPokemon.atk1power }}">
 	{% if atk2name != Null %}
-		<input type="submit" name="atk2" value="{{ userPoke1.atk2name }}: {{ userPoke1.atk2power }}">
+		<input type="submit" name="atk2" value="{{ request.session.initPokemon.atk2name }}: {{ request.session.initPokemon.atk2power }}">
 	{% if atk3name != Null %}
-		<input type="submit" name="atk3" value="{{ userPoke1.atk3name }}: {{ userPoke1.atk3power }}">
+		<input type="submit" name="atk3" value="{{ request.session.initPokemon.atk3name }}: {{ request.session.initPokemon.atk3power }}">
 	{% if atk4name != Null %}
-		<input type="submit" name="atk4" value="{{ userPoke1.atk4name }}: {{ userPoke1.atk4power }">
+		<input type="submit" name="atk4" value="{{ request.session.initPokemon.atk4name }}: {{ request.session.initPokemon.atk4power }">
 	{% endif %}
 	{% endif %}
 	{% endif %}
