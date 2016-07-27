@@ -81,7 +81,7 @@ class PokemonManager(models.Manager):
 			print 'user3'
 			user.save()
 			return True
-		return False		
+		
 class Pokemon(models.Model):
 	name = models.CharField(max_length=250)
 	hp = models.PositiveSmallIntegerField()
