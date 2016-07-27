@@ -209,6 +209,7 @@ def papi(request):
 def pokedex(request):
 	if request.method=="POST":
 		id= request.session['id']
+		pokeid=request.POST['pokeid']
 		name= request.POST['name']
 		hp= request.POST['hp']
 		poketype= request.POST['poketype']
@@ -227,11 +228,25 @@ def pokedex(request):
 		messages.info(request, 'You added '+ name)
 	return redirect(reverse ('poke_papi'))	
 
-def dashboard(request):
+def otherdashboard(request,id):
+	user= User.objects.filter(id=id)
 	context = {
-		"user": User.objects.filter(id=request.session['id'])
-	}
-	return render(request, 'poke/dashboard.html', context)
+ 		"p1": "poke/images/" + str(user[0].p1.pokeid) + ".png",
+ 		"p2": "poke/images/" + str(user[0].p2.pokeid) + ".png",
+ 		"p3": "poke/images/" + str(user[0].p3.pokeid) + ".png",
+ 		"user": User.objects.filter(id=id)
+  	}
+	return render(request, 'poke/otherdashboard.html', context)
+
+def dashboard(request):
+	user= User.objects.filter(id=request.session['id'])
+	context = {
+ 		"p1": "poke/images/" + str(user[0].p1.pokeid) + ".png",
+ 		"p2": "poke/images/" + str(user[0].p2.pokeid) + ".png",
+ 		"p3": "poke/images/" + str(user[0].p3.pokeid) + ".png",
+ 		"user": User.objects.filter(id=request.session['id'])
+  	}
+	return render(request, 'poke/dashboard.html', context)	
 
 def youwon(request):
 	return redirect('/dashboard')
@@ -240,7 +255,10 @@ def youlose(request):
 	return redirect('/dashboard')
 
 def rivals(request):
-	return render(request, "poke/rivals.html")
+	context={
+ 	"users": User.objects.exclude(id=request.session['id'])#, "pokemon": 'test'
+ 	}
+ 	return render(request, 'poke/rivals.html', context)
 
 def logout(request):
 	del request.session['id']
