@@ -58,6 +58,7 @@ class UserManager(models.Manager):
 
 
 # Create your models here.
+
 class PokemonManager(models.Manager):
 	def add(self, pokeid, name, hp, poketype, atk1power,atk2power,atk3power,atk4power,atk1name,atk2name,atk3name,atk4name,id):
 		user= User.objects.get(id= id)
@@ -83,7 +84,7 @@ class PokemonManager(models.Manager):
 			print 'user3'
 			user.save()
 			return True
-		return False		
+
 class Pokemon(models.Model):
 	name = models.CharField(max_length=250)
 	hp = models.PositiveSmallIntegerField()

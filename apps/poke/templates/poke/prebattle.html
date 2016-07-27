@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Battle Order</title>
+	<script src= 'static/poke/jquery/jquery-3.0.0.js'></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			// $('#Pokemon1').on("click", function(){
+			// 	$('#poke1').html('{{ userPoke1.name }}') //CHANGE TO userPoke1.img
+			// })
+			// $('#Pokemon2').on("click", function(){
+			// 	$('#poke2').html('{{ userPoke2.name }}') //CHANGE TO userPoke2.img
+			// })
+			// $('#Pokemon3').on("click", function(){
+			// 	$('#poke3').html('{{ userPoke3.name }}') //CHANGE TO userPoke3.img
+			// })
+
+
+		})
+	</script>
+</head>
+<body>
+<div id="pokemon">
+	{{ user.username }}, choose your first pokemon!
+	<div id="Pokemon1">
+		<form action="prebattlepick" method="post">
+		{% csrf_token %}
+		{{ userPoke1.img }}
+		{{ userPoke1.name }}
+		<input type="submit" name="poke1" value="{{ userPoke1.name }}">
+		</form>
+	</div>
+	<div id="Pokemon2">
+		<form action="prebattlepick" method="post">
+		{% csrf_token %}
+		{{ userPoke2.img }}
+		{{ userPoke2.name }}
+		<input type="submit" name="poke2" value="{{ userPoke2.name }}">
+		</form>
+	</div>
+	<div id="Pokemon3">
+		<form action="prebattlepick" method="post">
+		{% csrf_token %}
+		{{ userPoke3.img }}
+		{{ userPoke3.name }}
+		<input type="submit" name="poke3" value="{{ userPoke3.name }}">
+		</form>
+	</div>
+
+</div>
+<div id="initPokemon">
+	{{ firstpick.name }}
+</div>
+<form action="/battle" method="get">
+	<input type="submit" value="FIGHT!">
+</form>
+</body>
+</html>
