@@ -240,7 +240,10 @@ def youlose(request):
 	return redirect('/dashboard')
 
 def rivals(request):
-	return render(request, "poke/rivals.html")
+	context = {
+		"users": User.objects.all()
+	}
+	return render(request, "poke/rivals.html", context)
 
 def logout(request):
 	del request.session['id']
