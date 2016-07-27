@@ -137,7 +137,7 @@ def userATK(request):
 		return redirect('/OppATK')
 
 	elif request.session['currentHP'] <= 0 and request.session['count'] == 3:
-		return redirect('/youwon')
+		return redirect('/gainlevel')
 
 def OppATK(request):
 
@@ -163,7 +163,7 @@ def OppATK(request):
 		return redirect('/battle')
 
 	elif request.session['MyHP'] <= 0 and request.session['OpCount'] == 3:
-		return redirect('/youlost')
+		return redirect('/youlose')
 
 	print ("my HP", request.session['MyHP'])
 
@@ -202,8 +202,12 @@ def login(request):
 		return redirect(reverse('poke_index'))
 
 def papi(request):
-	
-	return render(request, 'poke/papi.html')
+	user= User.objects.get(id= request.session['id'])
+	print user.lvl
+	context={
+	"users": User.objects.get(id=request.session['id']).lvl
+	}
+	return render(request, 'poke/papi.html', context)
 
 def pokedex(request):
 	if request.method=="POST":
@@ -249,11 +253,25 @@ def dashboard(request):
   	}
 	return render(request, 'poke/dashboard.html', context)	
 
+def gainlevel(request):
+	user=User.objects.get(id=request.session['id'])
+	print user.lvl
+	user.lvl= user.lvl+1
+	print user.lvl
+	user.save()
+	return redirect('/youwon')
 def youwon(request):
-	return redirect('/dashboard')
+	
+	context={
+	"users": User.objects.get(id=request.session['id'])
+	}
+	return render(request, 'poke/youwon.html',context)
 
 def youlose(request):
-	return redirect('/dashboard')
+	context={
+	"users": User.objects.filter(id=request.session['id'])
+	}
+	return render(request, 'poke/youlose.html',context)
 
 def rivals(request):
 	context={
