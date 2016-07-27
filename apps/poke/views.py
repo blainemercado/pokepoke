@@ -6,7 +6,6 @@ from random import randint
 
 import re
 
-# Create your views here.
 def index(request):
 	return render(request, 'poke/index.html')
 
@@ -17,7 +16,6 @@ def prebattle(request):
 	request.session['count'] = 1
 	request.session['OpCount'] = 1
 	print request.session['opponent_id']
-	#opponent_id = request.session['opponent_id'] #CHANGE THIS TO OPPONENT ID
 	opponent = User.userManager.get(id=request.session['opponent_id'])
 
 	request.session['oppPoke1'] = opponent.p1

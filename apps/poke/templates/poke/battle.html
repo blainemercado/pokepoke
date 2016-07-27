@@ -10,7 +10,7 @@
 
 	$(document).ready(function(){
 		$('[name=atk1').on("click", function(){
-			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk1name }}!!!</h1>");
+			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk1name }}</h1>");
 			
 			$('#pokemonAttacks').submit(function (e) {
 			    var form = this;
@@ -21,7 +21,7 @@
 			});
 		});
 		$('[name=atk2').on("click", function(){
-			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk2name }}!!!</h1>");
+			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk2name }}</h1>");
 			
 			$('#pokemonAttacks').submit(function (e) {
 			    var form = this;
@@ -32,7 +32,7 @@
 			});
 		});
 		$('[name=atk3').on("click", function(){
-			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk3name }}!!!</h1>");
+			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk3name }}</h1>");
 			
 			$('#pokemonAttacks').submit(function (e) {
 			    var form = this;
@@ -43,7 +43,7 @@
 			});
 		});
 		$('[name=atk4').on("click", function(){
-			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk4name }}!!!</h1>");
+			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk4name }}</h1>");
 			
 			$('#pokemonAttacks').submit(function (e) {
 			    var form = this;
@@ -68,22 +68,22 @@
 </div>
 <div id="container">
 	<div id="opponent">
-	{{ request.session.oppPoke1.name }}
-	<p>HP: {{ request.session.currentHP }}</p>
-	{% if request.session.oppPoke1 == opponentPoke1 %}
-		<img src="{% static opp1 %}" alt="Pokemon character">
-	{% endif %}
-	{% if request.session.oppPoke1 == opponentPoke2 %}
-		<img src="{% static opp2 %}" alt="Pokemon character">
-	{% endif %}
-	{% if request.session.oppPoke1 == opponentPoke3 %}
-		<img src="{% static opp3 %}" alt="Pokemon character">
-	{% endif %}
+		<p>{{ request.session.oppPoke1.name }}</p>
+		<p>HP: {{ request.session.currentHP }}</p>
+		{% if request.session.oppPoke1 == opponentPoke1 %}
+			<img src="{% static opp1 %}" alt="Pokemon character">
+		{% endif %}
+		{% if request.session.oppPoke1 == opponentPoke2 %}
+			<img src="{% static opp2 %}" alt="Pokemon character">
+		{% endif %}
+		{% if request.session.oppPoke1 == opponentPoke3 %}
+			<img src="{% static opp3 %}" alt="Pokemon character">
+		{% endif %}
 	</div>
 
 	<div id="user">
 
-		{{ request.session.initPokemon.name }}
+		<p>{{ request.session.initPokemon.name }}</p>
 		<p>HP: {{ request.session.MyHP }}</p>
 		<!-- <img src="static/poke/images/pokemon1.png"> -->
 
@@ -114,7 +114,7 @@
 	<div id="userATK">
 	</div>
 	<div id="opponentATK">
-	<h1>{{ request.session.oppPoke1.name }} uses {{ request.session.oppATKchoice }}!!!</h1>
+	<h1>{{ request.session.oppPoke1.name }} used {{ request.session.oppATKchoice }}</h1>
 	</div>
 	<div id="otherPokemon2">
 	</div>
