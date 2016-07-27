@@ -33,9 +33,11 @@
 </head>
 <body>
 
-<div id="menubar">
-HOME
-LOGOUT
+<div id="nav">
+	<a id="home" href="{%url 'poke_dashboard' id=user.id %}">Dashboard</a>
+	<div id="logout">
+		<a href="/">Logout</a>
+	</div>
 </div>
 EXIT
 <div id="opponent">
@@ -45,7 +47,6 @@ EXIT
 
 <div id="user">
 
-	<!-- will eventually be like <img src="{{ userPoke1.img }}" -->
 	{{ request.session.initPokemon.name }}
 	<p>HP: {{ request.session.MyHP }}</p>
 	<img src="static/poke/images/pokemon1.png">
@@ -57,32 +58,12 @@ EXIT
 	{% if atk3name != Null %}
 		<input type="submit" name="atk3" value="{{ userPoke1.atk3name }}: {{ userPoke1.atk3power }}">
 	{% if atk4name != Null %}
-		<input type="submit" name="atk4" value="{{ userPoke1.atk4name }}: {{ userPoke1.atk4power }}">
+		<input type="submit" name="atk4" value="{{ userPoke1.atk4name }}: {{ userPoke1.atk4power }">
 	{% endif %}
 	{% endif %}
 	{% endif %}
 	</form>
 
-
-
-
-	{% if request.session.initPokemon.id == 2 %}
-	<!-- will eventually be like <img src="{{ userPoke1.img }}" -->
-	<img src="static/poke/images/pokemon2.png">
-	<form id="pokemonAttacks" action="/atk" method="post">
-	{%csrf_token%}
-		<input type="submit" name="atk1" value="{{ userPoke2.atk1name }}: {{ userPoke2.atk1power }}">
-	{% if atk2name != Null %}
-		<input type="submit" name="atk2" value="{{ userPoke2.atk2name }}: {{ userPoke2.atk2power }}">
-	{% if atk3name != Null %}
-		<input type="submit" name="atk3" value="{{ userPoke2.atk3name }}: {{ userPoke2.atk3power }}">
-	{% if atk4name != Null %}
-		<input type="submit" name="atk4" value="{{ userPoke2.atk4name }}: {{ userPoke2.atk4power }}">
-	{% endif %}
-	{% endif %}
-	{% endif %}
-	</form>
-	{% endif %}
 </div>
 
 <div id="userATK">

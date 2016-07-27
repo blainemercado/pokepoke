@@ -37,7 +37,6 @@ def prebattlepick(request):
 		if 'poke1' in request.POST:
 			pick = User.userManager.get(id=user_id).p1
 			request.session['currentHP'] = request.session['oppPoke1'].hp
-			request.session['MyHP'] = request.session['initPokemon'].hp
 			print "POKEMON 1"
 			context = {
 				"firstpick": pick,
@@ -47,6 +46,7 @@ def prebattlepick(request):
 				"userPoke3": User.userManager.get(id=user_id).p3,
 			}
 			request.session['initPokemon'] = pick
+			request.session['MyHP'] = request.session['initPokemon'].hp
 			request.session['secondPokemon'] = User.userManager.get(id=user_id).p2
 			request.session['thirdPokemon'] = User.userManager.get(id=user_id).p3
 			print request.session['initPokemon'].name
@@ -56,7 +56,6 @@ def prebattlepick(request):
 		elif 'poke2' in request.POST:
 			pick = User.userManager.get(id=user_id).p2
 			request.session['currentHP'] = request.session['oppPoke1'].hp
-			request.session['MyHP'] = request.session['initPokemon'].hp
 			print "POKEMON 2"
 			context = {
 				"firstpick": pick,
@@ -66,6 +65,7 @@ def prebattlepick(request):
 				"userPoke3": User.userManager.get(id=user_id).p3,
 			}
 			request.session['initPokemon'] = pick
+			request.session['MyHP'] = request.session['initPokemon'].hp
 			request.session['secondPokemon'] = User.userManager.get(id=user_id).p1
 			request.session['thirdPokemon'] = User.userManager.get(id=user_id).p3
 			print pick.name
@@ -73,7 +73,6 @@ def prebattlepick(request):
 		elif 'poke3' in request.POST:
 			pick = User.userManager.get(id=user_id).p3
 			request.session['currentHP'] = request.session['oppPoke1'].hp
-			request.session['MyHP'] = request.session['initPokemon'].hp
 			print "POKEMON 3"
 			context = {
 				"firstpick": pick,
@@ -83,6 +82,7 @@ def prebattlepick(request):
 				"userPoke3": User.userManager.get(id=user_id).p3,
 			}
 			request.session['initPokemon'] = pick
+			request.session['MyHP'] = request.session['initPokemon'].hp
 			request.session['secondPokemon'] = User.userManager.get(id=user_id).p1
 			request.session['thirdPokemon'] = User.userManager.get(id=user_id).p2
 			print pick.name
@@ -209,6 +209,7 @@ def papi(request):
 def pokedex(request):
 	if request.method=="POST":
 		id= request.session['id']
+		pokeid=request.POST['pokeid']
 		name= request.POST['name']
 		hp= request.POST['hp']
 		poketype= request.POST['poketype']
@@ -243,7 +244,8 @@ def rivals(request):
 	return render(request, "poke/rivals.html")
 
 def logout(request):
-	del request.session['id']
-	del request.session['username']
 
-	return redirect('/index')
+	for key in request.session.keys():
+		del request.session[key]
+
+	return redirect('/')
