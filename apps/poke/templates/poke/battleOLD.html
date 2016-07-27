@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Battlefield</title>
+	<link rel="stylesheet" type="text/css" href="static/poke/css/battle.css">
+</head>
+<body>
+<div id="menubar">
+HOME
+LOGOUT
+</div>
+EXIT
+<div id="opponent">
+opponent Pokemon
+<p>HP: </p>
+</div>
+
+<div id="user">
+	<!-- will eventually be like <img src="{{ userPoke1.img }}" -->
+	<img src="static/poke/images/pokemon1.png">
+	<form id="pokemonAttacks" action="/atk" method="post">
+	{%csrf_token%}
+		<input type="submit" onclick="displayATK()" name="atk1" value="{{ userPoke1.atk1name }}: {{ userPoke1.atk1power }}">
+	{% if atk2name != Null %}
+		<input type="submit" name="atk2" value="{{ userPoke1.atk2name }}: {{ userPoke1.atk2power }}">
+	{% if atk3name != Null %}
+		<input type="submit" name="atk3" value="{{ userPoke1.atk3name }}: {{ userPoke1.atk3power }}">
+	{% if atk4name != Null %}
+		<input type="submit" name="atk4" value="{{ userPoke1.atk4name }}: {{ userPoke1.atk4power }}">
+	{% endif %}
+	{% endif %}
+	{% endif %}
+	</form>
+</div>
+
+<div id="userATK">
+user ATK
+</div>
+<div id="opponentATK">
+opponent ATK
+</div>
+<div id="otherPokemon2">
+</div>
+<div id="otherPokemon3">
+</div>
+
+
+	<script>
+		
+	var userHP = 0;
+	var opponentHP = 0;
+
+	var Pokemon1 = user.Poke1;
+	var Pokemon2 = user.Poke2;
+	var Pokemon3 = user.Poke3;
+
+	function OtherPokemons(){
+		document.getElementById("otherPokemon2").innerHTML = "<img src='static/poke/images/pokemon2.png'>";
+		document.getElementById("otherPokemon3").innerHTML = "<img src='static/poke/images/pokemon3.png'>";
+	}
+	OtherPokemons();
+
+	function displayATK(){
+		document.getElementById("userATK").innerHTML = "<h1>Picka-CHUUUU!!!</h1>"
+
+	}
+	
+	</script>
+</body>
+</html>

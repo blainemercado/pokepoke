@@ -25,3 +25,9 @@ div#otherPokemon2, div#otherPokemon3{
 	display: block;
 	vertical-align: top;
 }
+div#opponentATK{
+	color: red;
+}
+div#userATK{
+	color: green;
+}

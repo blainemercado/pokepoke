@@ -1,0 +1,80 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Pokemon API</title>	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+<script>
+$(document).ready(function(){
+		console.log("test")
+	
+		$.get("http://pokeapi.co/api/v2/pokedex/2", function(res){
+				console.log("testing")
+				//for (var i=0; i<res.pokemon_entries.length;i++){
+				for (var i=0; i<13; i=i+3){	
+					id=res.pokemon_entries[i].entry_number;
+					console.log(id);
+					string = "<img src='http://pokeapi.co/media/img/" + id + ".png' id="+ id +">";
+					$('#container2').append(string);
+					var string3="#" + id
+					$(string3).on('click',function(){
+						pokemon = $(this).attr('id');
+
+						$.get("https://pokeapi.co/api/v2/pokemon/" + pokemon,function(res){
+							name="<p><strong>Name: </strong>" + res.forms[0].name + "</p>"
+							name_value= res.forms[0].name 
+							//string3="<p><strong>Height: </strong>" + res.height + "</p>"
+							//string4="<p><strong>Weight: </strong>" + res.weight + "</p>"
+							type="<p><strong>Type: </strong>" + res.types[0].type.name + "</p>"
+							poketype= res.types[0].type.name
+							//string6="<p><strong>Ability or Trait: </strong>" + res.abilities[0].ability.name +"</p>"
+							attack= "<p><strong> Attack: </strong>" + res.stats[4].base_stat + "</p>"
+							atk1power= res.stats[4].base_stat
+							health= "<p><strong> Health: </strong>" + res.stats[5].base_stat + "</p>"
+							hp= res.stats[5].base_stat
+							atk1name= res.moves[0].move.name
+							//sprite= "<p><strong> Image: </strong>" + res.sprites.front_shiny + "</p>"
+							$('#container1').html(name+type+attack+health);
+						})
+						$.get("https://pokeapi.co/api/v2/pokemon-species/" + pokemon,function(res){
+							string="<p><strong>Flavor Text: </strong>" + res.flavor_text_entries[1].flavor_text +"</p>"
+							$('#container1').append(string);
+						})
+						$.get("https://pokeapi.co/api/v2/pokedex/2", function(res){
+							console.log(pokemon)
+							image= "<img src='http://pokeapi.co/media/img/" + pokemon + ".png' id="+ id +">";
+							$('#container3').html(image);
+							$('#form').html("<form action= 'papi/pokedex' method= 'post'>" +
+							  	"<input type= 'hidden' name= 'name' value=" + name_value + "> " +
+							  	"<input type= 'hidden' name= 'poketype' value=" + poketype + ">" +
+							  	"<input type= 'hidden' name= 'hp' value=" + hp + ">" +
+							  	"<input type= 'hidden' name= 'atk1power' value=" + atk1power + ">" +
+							  	"<input type= 'hidden' name= 'atk1name' value=" + atk1name + ">" +
+								"<input type= 'submit' value= 'Choose this pokemon'>" +
+								"{% csrf_token %}" +
+								"</form>")
+						})  
+					})
+				}
+				console.log(res);
+			},"json");
+		});
+
+</script>	
+</head>
+<body>
+	<div id="container1" style="border:3px solid black; width:1000px" >
+	</div>
+	<div id="container2">
+	</div>
+	<div id='form'>
+
+	</div>	
+	<div id="container3" style="border:3px solid black; width:150px" >
+	</div>
+	<div id='messages'> 
+		{%for message in messages%}
+			{{message}}
+		{%endfor%}
+	</div>		
+</body>
+</html>

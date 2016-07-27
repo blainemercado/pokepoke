@@ -10,14 +10,89 @@ import re
 def index(request):
 	return render(request, 'poke/index.html')
 
+def prebattle(request):
+	request.session['count'] = 1
+	request.session['OpCount'] = 1
+	opponent_id = 3
+	opponent = User.userManager.get(id=opponent_id)
+
+	request.session['oppPoke1'] = opponent.p1
+	request.session['oppPoke2'] = opponent.p2
+	request.session['oppPoke3'] = opponent.p3
+
+	user_id = request.session['id']
+	
+	context = {
+		"user": User.userManager.get(id=user_id),
+		"userPoke1": User.userManager.get(id=user_id).p1,
+		"userPoke2": User.userManager.get(id=user_id).p2,
+		"userPoke3": User.userManager.get(id=user_id).p3,
+	}
+
+	return render(request, "poke/prebattle.html", context)
+
+def prebattlepick(request):
+	user_id = request.session['id']
+	if request.method == "POST":
+		if 'poke1' in request.POST:
+			pick = User.userManager.get(id=user_id).p1
+			request.session['currentHP'] = request.session['oppPoke1'].hp
+			request.session['MyHP'] = request.session['initPokemon'].hp
+			print "POKEMON 1"
+			context = {
+				"firstpick": pick,
+				"user": User.userManager.get(id=user_id),
+				"userPoke1": User.userManager.get(id=user_id).p1,
+				"userPoke2": User.userManager.get(id=user_id).p2,
+				"userPoke3": User.userManager.get(id=user_id).p3,
+			}
+			request.session['initPokemon'] = pick
+			request.session['secondPokemon'] = User.userManager.get(id=user_id).p2
+			request.session['thirdPokemon'] = User.userManager.get(id=user_id).p3
+			print request.session['initPokemon'].name
+			print "***************"
+			print pick.name
+			return render(request, "poke/prebattle.html", context)
+		elif 'poke2' in request.POST:
+			pick = User.userManager.get(id=user_id).p2
+			request.session['currentHP'] = request.session['oppPoke1'].hp
+			request.session['MyHP'] = request.session['initPokemon'].hp
+			print "POKEMON 2"
+			context = {
+				"firstpick": pick,
+				"user": User.userManager.get(id=user_id),
+				"userPoke1": User.userManager.get(id=user_id).p1,
+				"userPoke2": User.userManager.get(id=user_id).p2,
+				"userPoke3": User.userManager.get(id=user_id).p3,
+			}
+			request.session['initPokemon'] = pick
+			request.session['secondPokemon'] = User.userManager.get(id=user_id).p1
+			request.session['thirdPokemon'] = User.userManager.get(id=user_id).p3
+			print pick.name
+			return render(request, "poke/prebattle.html", context)
+		elif 'poke3' in request.POST:
+			pick = User.userManager.get(id=user_id).p3
+			request.session['currentHP'] = request.session['oppPoke1'].hp
+			request.session['MyHP'] = request.session['initPokemon'].hp
+			print "POKEMON 3"
+			context = {
+				"firstpick": pick,
+				"user": User.userManager.get(id=user_id),
+				"userPoke1": User.userManager.get(id=user_id).p1,
+				"userPoke2": User.userManager.get(id=user_id).p2,
+				"userPoke3": User.userManager.get(id=user_id).p3,
+			}
+			request.session['initPokemon'] = pick
+			request.session['secondPokemon'] = User.userManager.get(id=user_id).p1
+			request.session['thirdPokemon'] = User.userManager.get(id=user_id).p2
+			print pick.name
+			return render(request, "poke/prebattle.html", context)
+
+	return render(request, "poke/prebattle.html")
+
 def battle(request):
-
-	print User.userManager.all()[0].id
-
-	id = 2
-	user_id = 1
-
-	user_id = 1
+	id = 4
+	user_id = request.session['id']
 
 	context = {
 		"user": User.userManager.get(id=user_id),
@@ -28,23 +103,73 @@ def battle(request):
 		"opponent": User.userManager.get(id=id),
 		"opponentPoke1": User.userManager.get(id=id).p1,
 		"opponentPoke2": User.userManager.get(id=id).p2,
-		"opponentPoke3": User.userManager.get(id=id).p3,	}
+		"opponentPoke3": User.userManager.get(id=id).p3,	
+	}
 
 	return render(request, 'poke/battle.html', context)
 
 def userATK(request):
-	if method == "POST":
-		if request.form['atk1']:
-			attack = User.userManager.filter(id=user_id).p1.atk1power + randint(0,10)
-			opponentHP = opponentHP - attack
+	opponent_id = 3
 
-		elif request.form['atk2']:
-			pass
-		elif request.form['atk3']:
-			pass
-		elif request.form['atk4']:
-			pass
+	user_id = request.session['id']
 
+	print request.session['oppPoke1'].name
+	attack = User.userManager.get(id=request.session['id']).p1.atk1power
+	print ("Attack power is:", attack)
+
+
+	print request.session['count']
+	if request.session['currentHP'] > 0:
+		request.session['currentHP'] -= (randint(0, attack/2))
+		return redirect('/OppATK')
+
+	elif request.session['currentHP'] <= 0 and request.session['count'] == 1:
+		request.session['currentHP'] = request.session['oppPoke2'].hp
+		request.session['count'] = 2
+		request.session['oppPoke1'] = request.session['oppPoke2']
+		print ("opponent HP:", request.session['currentHP'], request.session['oppPoke1'].name)
+		return redirect('/OppATK')
+
+	elif request.session['currentHP'] <= 0 and request.session['count'] == 2:
+		request.session['currentHP'] = request.session['oppPoke3'].hp
+		request.session['count'] = 3
+		request.session['oppPoke1'] = request.session['oppPoke3']
+		print ("opponent HP:", request.session['currentHP'], request.session['oppPoke1'].name)
+		return redirect('/OppATK')
+
+	elif request.session['currentHP'] <= 0 and request.session['count'] == 3:
+		return redirect('/youwon')
+
+def OppATK(request):
+	opponent_id = 3
+
+	user_id = request.session['id']
+
+	theirAttack = User.userManager.get(id=opponent_id).p1.atk1power
+
+	if request.session['MyHP'] > 0:
+		request.session['MyHP'] -= (randint(0, theirAttack/2))
+
+	elif request.session['MyHP'] <= 0 and request.session['OpCount'] == 1:
+		request.session['MyHP'] = request.session['secondPokemon'].hp
+		request.session['OpCount'] = 2
+		request.session['initPokemon'] = request.session['secondPokemon']
+		print ("my HP:", request.session['MyHP'], request.session['initPokemon'].name)
+		return redirect('/battle')
+
+	elif request.session['MyHP'] <= 0 and request.session['OpCount'] == 2:
+		request.session['MyHP'] = request.session['thirdPokemon'].hp
+		request.session['OpCount'] = 3
+		request.session['initPokemon'] = request.session['thirdPokemon']
+		print ("my HP:", request.session['MyHP'], request.session['initPokemon'].name)
+		return redirect('/battle')
+
+	elif request.session['MyHP'] <= 0 and request.session['OpCount'] == 3:
+		return redirect('/youlost')
+
+	print ("my HP", request.session['MyHP'])
+
+	return redirect('/battle')
 
 def register(request):
 	print "pre check"
@@ -79,7 +204,28 @@ def login(request):
 		return redirect(reverse('poke_index'))
 
 def papi(request):
+	
 	return render(request, 'poke/papi.html')
+
+def pokedex(request):
+	if request.method=="POST":
+		id= request.session['id']
+		name= request.POST['name']
+		hp= request.POST['hp']
+		poketype= request.POST['poketype']
+		atk1name= request.POST['atk1name']
+		atk1power= request.POST['atk1power']
+		full=Pokemon.pokemonManager.add(name,hp,poketype,atk1name,atk1power,id)
+		if full:
+			return redirect(reverse('poke_dashboard'))
+		messages.info(request, 'You added '+ name)
+	return redirect(reverse ('poke_papi'))	
 
 def dashboard(request):
 	return render(request, 'poke/dashboard.html')
+
+def youwon(request):
+	return redirect('/dashboard')
+
+def youlose(request):
+	return redirect('/dashboard')
