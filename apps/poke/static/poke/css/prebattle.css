@@ -1,0 +1,37 @@
+#nav {
+		border: 2px solid darkgrey;
+		height: 30px;
+		background: linear-gradient(#FAFAFA, #E0E0E0);
+	}
+		#home {
+			margin-right: 650px;
+			font-family: fantasy;
+			font-size: 20px;
+			color: darkgreen;
+		}
+		#logout {
+			text-align: right;
+			display: inline-block;
+			margin-top: 3px;
+		}
+		#logout a {
+			font-family: fantasy;
+			font-size: 20px;
+			color: darkgreen;
+		}
+
+div#Pokemon1, div#Pokemon2, div#Pokemon3{
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 10px;
+}
+div#initPokemon{
+	margin-top: 10px;
+	padding: 10px;
+	border: 2px black solid;
+	display: inline-block;
+}
+	div#initPokemon u{
+		font-size: 16px;
+		font-weight: bold;
+	}

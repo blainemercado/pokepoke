@@ -2,7 +2,11 @@
 	margin: 0px;
 	border: 0px;
 }
-
+div#container{
+	background-image: url("../../../static/poke/images/background.png");
+	background-repeat: no-repeat;
+	background-size: 1000px 700px;
+}
 div#opponent{
 	height: 200px;
 	width: 200px;
@@ -11,11 +15,13 @@ div#opponent{
 div#userATK{
 	height: 100px;
 	width: 200px;
+	color: green;
 }
 div#opponentATK{
 	height: 100px;
 	width: 200px;
 	margin-left: 100px;
+	color: red;
 }
 div#user, div#userATK, div#opponentATK{
 	display: inline-block;
@@ -25,12 +31,7 @@ div#otherPokemon2, div#otherPokemon3{
 	display: block;
 	vertical-align: top;
 }
-div#opponentATK{
-	color: red;
-}
-div#userATK{
-	color: green;
-}
+
 #nav {
 		border: 2px solid darkgrey;
 		height: 30px;

@@ -5,6 +5,7 @@
 	<title>Rivals</title>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="static/poke/css/rivals.css">
 </head>
 <body>
 <style> 
@@ -14,7 +15,12 @@ h1{
 }		
 
 </style>
-
+<div id="nav">
+  <a id="home" href="{%url 'poke_dashboard' %}">Dashboard</a>
+  <div id="logout">
+    <a href="/">Logout</a>
+  </div>
+</div>
 <h1> Rivals in the area </h1>	
 
 <div class="container">

@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>Battlefield</title>
+	{% load staticfiles %}
 	<link rel="stylesheet" type="text/css" href="static/poke/css/battle.css">
 	<script src= 'static/poke/jquery/jquery-3.0.0.js'></script>
 	<script type="text/javascript">
@@ -10,7 +11,6 @@
 	$(document).ready(function(){
 		$('[name=atk1').on("click", function(){
 			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk1name }}!!!</h1>");
-			$('#opponentATK').html("<h1>{{ request.session.oppPoke1.name }} uses {{ request.session.oppPoke1.atk1name }}!!!</h1>");
 			
 			$('#pokemonAttacks').submit(function (e) {
 			    var form = this;
@@ -20,13 +20,40 @@
 			    }, 2000);
 			});
 		});
-		// var count = 1;
-		// if (request.session['oppFirstPokeHP'] <=0){
-		// 	$('#opponent').html('<img src="{{ opponentPoke2.img }}"><p>{{ opponentPoke2.name }}</p>')
-		// 	count +=1;
-		// 	if count = 2:
-		// 		$('#opponent').html('<img src="{{ opponentPoke3.img }}"><p>{{ opponentPoke3.name }}</p>')
-		// }
+		$('[name=atk2').on("click", function(){
+			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk2name }}!!!</h1>");
+			
+			$('#pokemonAttacks').submit(function (e) {
+			    var form = this;
+			    e.preventDefault();
+			    setTimeout(function () {
+			        form.submit();
+			    }, 2000);
+			});
+		});
+		$('[name=atk3').on("click", function(){
+			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk3name }}!!!</h1>");
+			
+			$('#pokemonAttacks').submit(function (e) {
+			    var form = this;
+			    e.preventDefault();
+			    setTimeout(function () {
+			        form.submit();
+			    }, 2000);
+			});
+		});
+		$('[name=atk4').on("click", function(){
+			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk4name }}!!!</h1>");
+			
+			$('#pokemonAttacks').submit(function (e) {
+			    var form = this;
+			    e.preventDefault();
+			    setTimeout(function () {
+			        form.submit();
+			    }, 2000);
+			});
+		});
+		$('#opponentATK').delay(2000).fadeOut(1000);
 	})
 
 	</script>
@@ -39,41 +66,61 @@
 		<a href="/">Logout</a>
 	</div>
 </div>
-<div id="opponent">
-{{ request.session.oppPoke1.name }}
-<p>HP: {{ request.session.currentHP }}</p>
-</div>
-
-<div id="user">
-
-	{{ request.session.initPokemon.name }}
-	<p>HP: {{ request.session.MyHP }}</p>
-	<img src="static/poke/images/pokemon1.png">
-	<form id="pokemonAttacks" action="/atk" method="post">
-	{%csrf_token%}
-		<input type="submit" name="atk1" value="{{ request.session.initPokemon.atk1name }}: {{ request.session.initPokemon.atk1power }} power">
-	{% if atk2name != Null %}
-		<input type="submit" name="atk2" value="{{ request.session.initPokemon.atk2name }}: {{ request.session.initPokemon.atk2power }} power">
-	{% if atk3name != Null %}
-		<input type="submit" name="atk3" value="{{ request.session.initPokemon.atk3name }}: {{ request.session.initPokemon.atk3power }} power">
-	{% if atk4name != Null %}
-		<input type="submit" name="atk4" value="{{ request.session.initPokemon.atk4name }}: {{ request.session.initPokemon.atk4power }} power">
+<div id="container">
+	<div id="opponent">
+	{{ request.session.oppPoke1.name }}
+	<p>HP: {{ request.session.currentHP }}</p>
+	{% if request.session.oppPoke1 == opponentPoke1 %}
+		<img src="{% static opp1 %}" alt="Pokemon character">
 	{% endif %}
+	{% if request.session.oppPoke1 == opponentPoke2 %}
+		<img src="{% static opp2 %}" alt="Pokemon character">
 	{% endif %}
+	{% if request.session.oppPoke1 == opponentPoke3 %}
+		<img src="{% static opp3 %}" alt="Pokemon character">
 	{% endif %}
-	</form>
+	</div>
 
-</div>
+	<div id="user">
 
-<div id="userATK">
+		{{ request.session.initPokemon.name }}
+		<p>HP: {{ request.session.MyHP }}</p>
+		<!-- <img src="static/poke/images/pokemon1.png"> -->
+
+		{% if request.session.initPokemon == userPoke1 %}
+			<img src="{% static p1 %}" alt="Pokemon character">
+		{% endif %}
+		{% if request.session.initPokemon == userPoke2 %}
+			<img src="{% static p2 %}" alt="Pokemon character">
+		{% endif %}
+		{% if request.session.initPokemon == userPoke3 %}
+			<img src="{% static p3 %}" alt="Pokemon character">
+		{% endif %}
+
+		<form id="pokemonAttacks" action="/atk" method="post">
+		{%csrf_token%}
+			<input type="submit" name="atk1" value="{{ request.session.initPokemon.atk1name }}: {{ request.session.initPokemon.atk1power }} attack power">
+	<br>
+			<input type="submit" name="atk2" value="{{ request.session.initPokemon.atk2name }}: {{ request.session.initPokemon.atk2power }} attack power">
+	<br>
+			<input type="submit" name="atk3" value="{{ request.session.initPokemon.atk3name }}: {{ request.session.initPokemon.atk3power }} attack power">
+	<br>
+			<input type="submit" name="atk4" value="{{ request.session.initPokemon.atk4name }}: {{ request.session.initPokemon.atk4power }} attack power">
+
+		</form>
+
+	</div>
+
+	<div id="userATK">
+	</div>
+	<div id="opponentATK">
+	<h1>{{ request.session.oppPoke1.name }} uses {{ request.session.oppATKchoice }}!!!</h1>
+	</div>
+	<div id="otherPokemon2">
+	</div>
+	<div id="otherPokemon3">
+	</div>
 </div>
-<div id="opponentATK">
-</div>
-<div id="otherPokemon2">
-</div>
-<div id="otherPokemon3">
-</div>	
 
 </body>
 </html>
-
