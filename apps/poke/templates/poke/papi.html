@@ -52,6 +52,7 @@ $(document).ready(function(){
 							$('#container3').html(image);
 							$('#form').html("<form action= 'papi/pokedex' method= 'post'>" +
 							  	"<input type= 'hidden' name= 'name' value=" + name_value + "> " +
+							  	"<input type= 'hidden' name= 'pokeid' value=" + pokemon + ">" +
 							  	"<input type= 'hidden' name= 'poketype' value=" + poketype + ">" +
 							  	"<input type= 'hidden' name= 'pokeid' value=" + pokemon + ">" +
 							  	"<input type= 'hidden' name= 'hp' value=" + hp + ">" +
