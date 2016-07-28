@@ -9,6 +9,11 @@
 	<script type="text/javascript">
 
 	$(document).ready(function(){
+		var snd = new Audio("../../../static/poke/sound/pokemon-theme.mp3");
+		snd.currentTime=0;
+		snd.play();
+
+
 		$('[name=atk1').on("click", function(){
 			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk1name }}</h1>");
 			
