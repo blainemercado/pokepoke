@@ -85,7 +85,6 @@
 
 		<p>{{ request.session.initPokemon.name }}</p>
 		<p>HP: {{ request.session.MyHP }}</p>
-		<!-- <img src="static/poke/images/pokemon1.png"> -->
 
 		{% if request.session.initPokemon == userPoke1 %}
 			<img src="{% static p1 %}" alt="Pokemon character">
@@ -96,29 +95,25 @@
 		{% if request.session.initPokemon == userPoke3 %}
 			<img src="{% static p3 %}" alt="Pokemon character">
 		{% endif %}
+		<div id="attackButtons">
+			<form id="pokemonAttacks" action="/atk" method="post">
+			{%csrf_token%}
+				<input type="submit" name="atk1" value="{{ request.session.initPokemon.atk1name }}">
 
-		<form id="pokemonAttacks" action="/atk" method="post">
-		{%csrf_token%}
-			<input type="submit" name="atk1" value="{{ request.session.initPokemon.atk1name }}: {{ request.session.initPokemon.atk1power }} attack power">
-	<br>
-			<input type="submit" name="atk2" value="{{ request.session.initPokemon.atk2name }}: {{ request.session.initPokemon.atk2power }} attack power">
-	<br>
-			<input type="submit" name="atk3" value="{{ request.session.initPokemon.atk3name }}: {{ request.session.initPokemon.atk3power }} attack power">
-	<br>
-			<input type="submit" name="atk4" value="{{ request.session.initPokemon.atk4name }}: {{ request.session.initPokemon.atk4power }} attack power">
+				<input type="submit" name="atk2" value="{{ request.session.initPokemon.atk2name }}">
+		<br>
+				<input type="submit" name="atk3" value="{{ request.session.initPokemon.atk3name }}">
 
-		</form>
+				<input type="submit" name="atk4" value="{{ request.session.initPokemon.atk4name }}">
 
+			</form>
+		</div>
 	</div>
 
 	<div id="userATK">
 	</div>
 	<div id="opponentATK">
 	<h1>{{ request.session.oppPoke1.name }} used {{ request.session.oppATKchoice }}</h1>
-	</div>
-	<div id="otherPokemon2">
-	</div>
-	<div id="otherPokemon3">
 	</div>
 </div>
 
