@@ -5,6 +5,8 @@
 	<title>Battlefield</title>
 	{% load staticfiles %}
 	<link rel="stylesheet" type="text/css" href="static/poke/css/battle.css">
+	 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 	<script src= 'static/poke/jquery/jquery-3.0.0.js'></script>
 	<script type="text/javascript">
 
@@ -85,6 +87,12 @@
 
 		<p>{{ request.session.initPokemon.name }}</p>
 		<p>HP: {{ request.session.MyHP }}</p>
+
+		<div class="progress">
+  		<div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="{{request.session.initPokemon.hp}}" style="width: {{ request.session.health }}%;">
+    		<span class="sr-only">60% Complete</span>
+  		</div>
+		</div>
 
 		{% if request.session.initPokemon == userPoke1 %}
 			<img src="{% static p1 %}" alt="Pokemon character">
