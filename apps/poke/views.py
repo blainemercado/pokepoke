@@ -17,6 +17,8 @@ def preprebattle(request, id):
 
 def prebattle(request):
 	request.session['health']= 100
+	request.session['healthopp']= 100
+	print "healthopp to start is", request.session['healthopp']
 	request.session['oppATKchoice'] = "TAUNT"
 
 	request.session['count'] = 1
@@ -120,7 +122,10 @@ def battle(request):
 	opponent = User.objects.filter(id=Opp_id)
 	currenthp= request.session['MyHP']
 	maxhp= request.session['initPokemon'].hp
-	request.session['health']= (currenthp/float(maxhp)) *100
+	request.session['health']= int(math.ceil((currenthp/float(maxhp)) *100))
+	currenthpopp= request.session['currentHP']
+	maxhpopp= request.session['initPokemon'].hp
+	request.session['healthopp']= int(math.ceil((currenthpopp/float(maxhpopp)) *100))
 
 	context = {
 		"user": User.userManager.get(id=user_id),

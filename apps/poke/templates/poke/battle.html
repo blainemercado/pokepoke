@@ -77,6 +77,13 @@
 	<div id="opponent">
 		<p>{{ request.session.oppPoke1.name }}</p>
 		<p>HP: {{ request.session.currentHP }}</p>
+
+		<div class="progress">
+  		<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="{{request.session.oppPoke1.hp}}" style="width: {{ request.session.healthopp }}%;">
+    		<span class= "sr-only">{{ request.session.healthopp }}% health</span>
+  		</div>
+		</div>
+
 		{% if request.session.oppPoke1 == opponentPoke1 %}
 			<img src="{% static opp1 %}" alt="Pokemon character">
 		{% endif %}
@@ -91,12 +98,13 @@
 	<div id="user">
 
 		<p>{{ request.session.initPokemon.name }}</p>
-		<p>HP: {{ request.session.MyHP }}</p>
+		<!-- <p>HP: {{ request.session.MyHP }}</p> -->
 
 		<div class="progress">
-  		<div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="{{request.session.initPokemon.hp}}" style="width: {{ request.session.health }}%;">
-    		<span class="sr-only">60% Complete</span>
-  		</div>
+	  		<div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="{{request.session.initPokemon.hp}}" style="width: {{ request.session.health }}%;">
+	  		<span> {{ request.session.health }}% health </span>
+				<!--   <span class="sr-only">60% Complete</span>--> 
+			</div>
 		</div>
 
 		{% if request.session.initPokemon == userPoke1 %}
