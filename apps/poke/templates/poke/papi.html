@@ -8,9 +8,11 @@ $(document).ready(function(){
 		console.log("test")
 	
 		$.get("http://pokeapi.co/api/v2/pokedex/2", function(res){
-				console.log("testing")
-				//for (var i=0; i<res.pokemon_entries.length;i++){
-				for (var i=0; i<13; i=i+3){	
+				
+				var max= {{users}}
+				console.log(max);
+
+				for (var i=0; i<max*5+5; i=i+3){	
 					id=res.pokemon_entries[i].entry_number;
 					string = "<img src='http://pokeapi.co/media/img/" + id + ".png' id="+ id +">";
 					$('#container2').append(string);
@@ -52,7 +54,9 @@ $(document).ready(function(){
 							$('#container3').html(image);
 							$('#form').html("<form action= 'papi/pokedex' method= 'post'>" +
 							  	"<input type= 'hidden' name= 'name' value=" + name_value + "> " +
+							  	"<input type= 'hidden' name= 'pokeid' value=" + pokemon + ">" +
 							  	"<input type= 'hidden' name= 'poketype' value=" + poketype + ">" +
+							  	"<input type= 'hidden' name= 'pokeid' value=" + pokemon + ">" +
 							  	"<input type= 'hidden' name= 'hp' value=" + hp + ">" +
 							  	"<input type= 'hidden' name= 'atk1power' value=" + atk1power + ">" +
 							  	"<input type= 'hidden' name= 'atk2power' value=" + atk2power + ">" +

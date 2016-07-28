@@ -5,6 +5,7 @@
 	<title>Rivals</title>
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="static/poke/css/rivals.css">
 </head>
 <body>
 <style> 
@@ -14,7 +15,12 @@ h1{
 }		
 
 </style>
-
+<div id="nav">
+  <a id="home" href="{%url 'poke_dashboard' %}">Dashboard</a>
+  <div id="logout">
+    <a href="/">Logout</a>
+  </div>
+</div>
 <h1> Rivals in the area </h1>	
 
 <div class="container">
@@ -31,10 +37,10 @@ h1{
       <tr>
    			{%for user in users%}
 		<tr>
-			<td><a href='dashboard/{{user.id}}'> {{user.username}} </a> </td>
+			<td><a href='otherdashboard/{{user.id}}'> {{user.username}} </a> </td>
 			<td> {{user.lvl}} </td>
 			<td> {{user.p1.name}} </td>
-			<td> <a href='/prebattle'> Lets do this! </a> </td>
+			<td> <a href='/preprebattle/{{user.id}}'> Lets do this! </a> </td>
 		</tr>	
 		{%endfor%}
       </tr>
