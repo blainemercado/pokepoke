@@ -15,13 +15,13 @@
 				<a href="{%url 'poke_logout' %}">Logout</a>
 			</div>
 		</div>
-		<h1> Welcome to the dashboard </h1>
+		<h1> Welcome to Pokemon Stay© </h1>
 		<div id="userInfo">
 			<h2>{{user.username}}</h2>
 			<p>Level: {{user.lvl}}</p>
 			<p>Win/Loss: Not yet added</p>
 			{%if request.session.id == user.id%}
-			<a href="*****URL*****">Go Hunting</a>
+			<a href="*****URL*****">Swap Pokemon</a>
 			<a href="/rivals">Scout Rivals</a>
 			{%endif%}
 			{%if request.session.id != user.id%}

@@ -16,6 +16,7 @@ urlpatterns = [
 	url(r'^papi/pokedex$', views.pokedex, name = 'poke_pokedex'),
 	url(r'^youwon$', views.youwon, name = "poke_won"),
 	url(r'^gainlevel$', views.gainlevel, name = "poke_gainlevel"),
+	url(r'^loselevel$', views.loselevel, name = "poke_loselevel"),
 	url(r'^youlose$', views.youlose, name = "poke_lose"),
 	url(r'^dashboard$', views.dashboard, name = 'poke_dashboard'),
 	url(r'^otherdashboard/(?P<id>\d+)$', views.otherdashboard, name = 'poke_otherdashboard'),

@@ -26,17 +26,18 @@ div#opponent p{
 div#opponent{
 	height: 200px;
 	width: 200px;
-	margin: auto;
+	margin-left:600px;
 }
 div#userATK{
 	height: 100px;
 	width: 200px;
 	color: green;
+	margin-left: 30px;
 }
 div#opponentATK{
 	height: 100px;
 	width: 200px;
-	margin-left: 100px;
+	margin-left: 70px;
 	color: red;
 }
 form#pokemonAttacks > input {

@@ -256,7 +256,7 @@ def OppATK(request):
 		return redirect('/battle')
 
 	elif request.session['MyHP'] <= 0 and request.session['OpCount'] == 3:
-		return redirect('/youlose')
+		return redirect('/loselevel')
 
 	print ("my HP", request.session['MyHP'])
 
@@ -348,11 +348,20 @@ def dashboard(request):
 
 def gainlevel(request):
 	user=User.objects.get(id=request.session['id'])
-	print user.lvl
 	user.lvl= user.lvl+1
-	print user.lvl
+	user.win=user.win+1
+	print user.win
 	user.save()
 	return redirect('/youwon')
+
+def loselevel(request):
+	user=User.objects.get(id=request.session['id'])
+	user.lose=user.lose+1
+	print user.lose
+	user.save()
+
+	return redirect('/youlose')
+
 def youwon(request):
 	
 	context={
