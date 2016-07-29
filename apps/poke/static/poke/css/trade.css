@@ -1,0 +1,82 @@
+* {
+	vertical-align: baseline;
+	font-weight: inherit;
+	font-family: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	border: 0 none;
+	outline: 0;
+	padding: 0;
+	margin: 0;
+}
+#container {
+	width: 900px;
+	height: 1000px;
+	background: #fbcecd; /* For browsers that do not support gradients */
+	background: -webkit-radial-gradient(#fbcecd, #7dc56c); /* Safari 5.1 to 6.0 */
+	background: -o-radial-gradient(#fbcecd, #7dc56c); /* For Opera 11.6 to 12.0 */
+	background: -moz-radial-gradient(#fbcecd, #7dc56c); /* For Firefox 3.6 to 15 */
+	background: radial-gradient(#fbcecd, #7dc56c); /* Standard syntax */
+}
+p {
+	margin-left: 25px;
+	color: darkred;
+	font-family: fantasy;
+	font-size: 18px;
+	font-weight: bold;
+}
+	#nav {
+		border: 2px solid darkgrey;
+		height: 30px;
+		background: linear-gradient(#FAFAFA, #E0E0E0);
+		margin-left: 0px;
+	}
+		#home {
+			margin-right: 650px;
+			font-family: fantasy;
+			font-size: 20px;
+			color: darkgreen;
+		}
+		#logout {
+			text-align: right;
+			display: inline-block;
+			margin-top: 3px;
+		}
+		#logout a {
+			font-family: fantasy;
+			font-size: 20px;
+			color: darkgreen;
+		}
+	#container1 {
+		text-align: left;
+		color: darkred;
+		font-family: fantasy;
+		font-size: 18px;
+		padding-top: 10px;
+		background: #fbcecd; /* For browsers that do not support gradients */
+  		background: -webkit-linear-gradient(#ffffff, #ee3823); /* For Safari 5.1 to 6.0 */
+  		background: -o-linear-gradient(#ffffff, #ee3823); /* For Opera 11.1 to 12.0 */
+  		background: -moz-linear-gradient(#ffffff, #ee3823); /* For Firefox 3.6 to 15 */
+  		background: linear-gradient(#ffffff, #ee3823);
+	}
+	#container2 {
+		width: 700px;
+		min-height: 600px;
+		display: inline-block;
+		
+	}
+	#right {
+		display: inline-block;
+		width: 175px;
+		vertical-align: top;
+	}
+		.submit {
+			border: 1px solid darkred;
+			background-color: #ee3823;
+			border-radius: 5px;
+			color: white;
+			margin: 5px 0px 10px 0px;
+			width: 150px;
+			height: 25px;
+		}
+	

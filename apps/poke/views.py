@@ -253,12 +253,72 @@ def login(request):
 		return redirect(reverse('poke_index'))
 
 def papi(request):
-	user= User.objects.get(id= request.session['id'])
-	print user.lvl
-	context={
-	"users": User.objects.get(id=request.session['id']).lvl
-	}
+	user= User.objects.filter(id= request.session['id'])
+	print user[0].lvl
+	
+	if user[0].p1 != None and user[0].p2 == None:
+		context = {
+			"user": User.objects.get(id=request.session['id']),
+			"p1": "poke/images/" + str(user[0].p1.pokeid) + ".png",
+			"p2": "poke/images/empty.png",
+			"p3": "poke/images/empty.png"
+		}
+	elif user[0].p1 != None and user[0].p2 != None and user[0].p3 == None:
+		context = {
+			"user": User.objects.get(id=request.session['id']),
+			"p1": "poke/images/" + str(user[0].p1.pokeid) + ".png",
+			"p2": "poke/images/" + str(user[0].p2.pokeid) + ".png",
+			"p3": "poke/images/empty.png"
+		}
+	elif user[0].p1 != None and user[0].p2 != None and user[0].p3 != None: 
+		context = {
+			"user": User.objects.get(id=request.session['id']),
+			"p1": "poke/images/" + str(user[0].p1.pokeid) + ".png",
+			"p2": "poke/images/" + str(user[0].p2.pokeid) + ".png",
+			"p3": "poke/images/" + str(user[0].p3.pokeid) + ".png"
+		}
+	else:
+		context = {
+			"user": User.objects.get(id=request.session['id']),
+			"p1": "poke/images/empty.png",
+			"p2": "poke/images/empty.png",
+			"p3": "poke/images/empty.png"
+		}
 	return render(request, 'poke/papi.html', context)
+
+def papitrade(request):
+	user= User.objects.filter(id= request.session['id'])
+	print user[0].p1.name, user[0].p2.name, user[0].p3.name
+	
+	if user[0].p1 != None and user[0].p2 == None:
+		context = {
+			"user": User.objects.get(id=request.session['id']),
+			"p1": "poke/images/" + str(user[0].p1.pokeid) + ".png",
+			"p2": "poke/images/empty.png",
+			"p3": "poke/images/empty.png"
+		}
+	elif user[0].p1 != None and user[0].p2 != None and user[0].p3 == None:
+		context = {
+			"user": User.objects.get(id=request.session['id']),
+			"p1": "poke/images/" + str(user[0].p1.pokeid) + ".png",
+			"p2": "poke/images/" + str(user[0].p2.pokeid) + ".png",
+			"p3": "poke/images/empty.png"
+		}
+	elif user[0].p1 != None and user[0].p2 != None and user[0].p3 != None: 
+		context = {
+			"user": User.objects.get(id=request.session['id']),
+			"p1": "poke/images/" + str(user[0].p1.pokeid) + ".png",
+			"p2": "poke/images/" + str(user[0].p2.pokeid) + ".png",
+			"p3": "poke/images/" + str(user[0].p3.pokeid) + ".png"
+		}
+	else:
+		context = {
+			"user": User.objects.get(id=request.session['id']),
+			"p1": "poke/images/empty.png",
+			"p2": "poke/images/empty.png",
+			"p3": "poke/images/empty.png"
+		}
+	return render(request, 'poke/trade.html', context)
 
 def pokedex(request):
 	if request.method=="POST":
@@ -281,6 +341,28 @@ def pokedex(request):
 			return redirect(reverse('poke_dashboard'))
 		messages.info(request, 'You added '+ name)
 	return redirect(reverse ('poke_papi'))	
+
+def pokedextrade(request, id):
+	if request.method=="POST":
+		user= request.session['id']
+		userpoke = id
+		pokeid=request.POST['pokeid']
+		name= request.POST['name']
+		hp= request.POST['hp']
+		poketype= request.POST['poketype']
+		atk1power= request.POST['atk1power']
+		atk2power= request.POST['atk2power']
+		atk3power= request.POST['atk3power']
+		atk4power= request.POST['atk3power']
+		atk1name= request.POST['atk1name']
+		atk2name= request.POST['atk2name']
+		atk3name= request.POST['atk3name']
+		atk4name= request.POST['atk4name']
+
+		trade = Pokemon.pokemonManager.trade(user, userpoke,pokeid,name,hp,poketype,atk1power,atk2power,atk3power,atk4power,atk1name,atk2name,atk3name,atk4name)
+		print trade
+		messages.info(request, 'You added '+ name)
+	return redirect(reverse ('poke_papitrade'))
 
 def otherdashboard(request,id):
 	user= User.objects.filter(id=id)

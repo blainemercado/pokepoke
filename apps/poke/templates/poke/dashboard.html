@@ -21,7 +21,6 @@
 			<p>Level: {{user.lvl}}</p>
 			<p>Win/Loss: Not yet added</p>
 			{%if request.session.id == user.id%}
-			<a href="*****URL*****">Go Hunting</a>
 			<a href="/rivals">Scout Rivals</a>
 			{%endif%}
 			{%if request.session.id != user.id%}
@@ -29,8 +28,10 @@
 			{%endif%}
 		</div>
 		<div id="roster">
-			<h2>Roster:</h2>
-			
+			<div class="heading">
+				<h2>Roster:</h2>
+				<a id="trade" href="{%url 'poke_papitrade' %}">Trade Pokemon</a>
+			</div>
 			<div class="poke">
 				<h3>{{user.p1.name}}</h3>
 				<img src="{% static p1 %}" alt="Pokemon character">

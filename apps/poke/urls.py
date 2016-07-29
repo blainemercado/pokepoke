@@ -20,5 +20,7 @@ urlpatterns = [
 	url(r'^dashboard$', views.dashboard, name = 'poke_dashboard'),
 	url(r'^otherdashboard/(?P<id>\d+)$', views.otherdashboard, name = 'poke_otherdashboard'),
 	url(r'^rivals$', views.rivals, name = 'poke_rivals'),
-	url(r'^logout$', views.logout, name = 'poke_logout')
+	url(r'^logout$', views.logout, name = 'poke_logout'),
+	url(r'^papi/trade$', views.papitrade, name = 'poke_papitrade'),
+	url(r'^papi/pokedextrade/(?P<id>\d+)$', views.pokedextrade, name = 'poke_pokedextrade')
 ]

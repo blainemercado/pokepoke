@@ -79,6 +79,16 @@
 		border: 1px solid grey;
 		padding: 15px;
 	}
+		#roster h2 {
+			display: inline-block;
+		}
+		#trade {
+			display: inline-block;
+			color: darkgreen;
+			font-family: fantasy;
+			font-size: 20px;
+			margin-left: 15px;
+		}
 		#roster .poke {
 			display: inline-block;
 			margin: 15px;

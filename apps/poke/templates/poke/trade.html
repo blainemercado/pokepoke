@@ -3,8 +3,9 @@
 	<meta charset="utf-8">
 	<title>Pokemon API</title>
 	{% load staticfiles %}	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
-<script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+	<link rel="stylesheet" type="text/css" href="{% static 'poke/css/trade.css' %}">
+	<script>
 $(document).ready(function(){
 		console.log("test");
 
@@ -13,7 +14,8 @@ $(document).ready(function(){
 				
 				var max= {{user.lvl}}
 				console.log(max);
-				
+
+		
 
 				for (var i=0; i<max*5+5; i=i+3){	
 					id=res.pokemon_entries[i].entry_number;
@@ -22,7 +24,7 @@ $(document).ready(function(){
 					var string3="#" + id
 					$(string3).on('click',function(){
 						pokemon = $(this).attr('id');
-					
+						console.log(pokemon)
 						$.get("https://pokeapi.co/api/v2/pokemon/" + pokemon,function(res){
 							name="<p><strong>Name: </strong>" + res.forms[0].name + "</p>"
 							name_value= res.forms[0].name 
@@ -55,7 +57,7 @@ $(document).ready(function(){
 							console.log(pokemon);
 							image= "<img src='http://pokeapi.co/media/img/" + pokemon + ".png' id="+ id +">";
 							$('#container3').html(image);
-							$('#form').html("<form action= 'papi/pokedex' method= 'post'>" +
+							$('.form').html(
 							  	"<input type= 'hidden' name= 'name' value=" + name_value + "> " +
 							  	"<input type= 'hidden' name= 'pokeid' value=" + pokemon + ">" +
 							  	"<input type= 'hidden' name= 'poketype' value=" + poketype + ">" +
@@ -70,9 +72,8 @@ $(document).ready(function(){
 							  	"<input type= 'hidden' name= 'atk3name' value=" + atk3name + ">" +
 							  	"<input type= 'hidden' name= 'atk4name' value=" + atk4name + ">" +
 							  	"<input type= 'hidden' name= 'pokeid' value=" + pokemon + ">" +
-								"<input type= 'submit' value= 'Choose this pokemon'>" +
-								"{% csrf_token %}" +
-								"</form>")
+								"<input class='submit' type= 'submit' value= 'Trade this pokemon'>" +
+								"{% csrf_token %}")
 						})  
 					})
 				}
@@ -83,31 +84,50 @@ $(document).ready(function(){
 </script>	
 </head>
 <body>
-	<div id="container1" style="border:3px solid black; width:1000px; height: 200px" >
-	</div>
-	<div id="container2">
-	</div>
-	<p>Selection:</p>
-	<div id="container3" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
-	</div>
-	<div id='form'>
+	<div id="container">
+		<div id="nav">
+			<a id="home" href="{%url 'poke_dashboard' %}">Dashboard</a>
+			<div id="logout">
+				<a href="{%url 'poke_logout' %}">Logout</a>
+			</div>
+		</div>
+		<div id="container1" style="border:3px solid black; height: 200px" >
+		</div>
 
-	</div>
-	<p>Roster:</p>
-	<div id="container4" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
-		<img src="{% static p1 %}" alt="Pokemon character" style="height: 120px; width: 150px;">
-	</div>
-	<div id="container5" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
-		<img src="{% static p2 %}" alt="Pokemon character" style="height: 120px; width: 150px;">
-	</div>
-	<div id="container6" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
-		<img src="{% static p3 %}" alt="Pokemon character" style="height: 120px; width: 150px;">
-	</div>
-		
-	<div id='messages'> 
-		{%for message in messages%}
-			{{message}}
-		{%endfor%}
+		<div id="container2">
+		</div>
+		<div id="right">
+			<p>Selection:</p>
+			<div id="container3" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
+			</div>
+			
+			<p>Roster:</p>
+			<div id="container7">
+				<div id="container4" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
+					<img id="{{user.p1.pokeid}}" src="{% static p1 %}" alt="Pokemon character" style="height: 120px; width: 150px;">
+				</div>
+				<form class='form' action= '/papi/pokedextrade/1' method= 'post' style="display: inline-block;">
+					
+				</form>
+				<div id="container5" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
+					<img id="{{user.p2.pokeid}}" src="{% static p2 %}" alt="Pokemon character" style="height: 120px; width: 150px;">
+				</div>
+				<form class='form' action= '/papi/pokedextrade/2' method= 'post' style="display: inline-block;">
+					
+				</form>
+				<div id="container6" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
+					<img id="{{user.p3.pokeid}}" src="{% static p3 %}" alt="Pokemon character" style="height: 120px; width: 150px;">
+				</div>
+				<form class='form' action= '/papi/pokedextrade/3' method= 'post' style="display: inline-block;">
+					
+				</form>
+			</div>	
+			<div id='messages'> 
+				{%for message in messages%}
+					{{message}}
+				{%endfor%}
+			</div>
+		</div>
 	</div>		
 </body>
 </html>

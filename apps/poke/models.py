@@ -55,6 +55,9 @@ class UserManager(models.Manager):
 			return True
 		else:
 			return (False, "pass")
+	def imagegrab(self, id):
+		for i in range(3):
+			pass
 
 
 # Create your models here.
@@ -84,6 +87,57 @@ class PokemonManager(models.Manager):
 			print 'user3'
 			user.save()
 			return True
+	def trade(self, user, userpoke, pokeid, name, hp, poketype, atk1power,atk2power,atk3power,atk4power,atk1name,atk2name,atk3name,atk4name):
+		if 'p1' == 'p'+userpoke:
+			user = User.objects.get(id=user)
+			print '********', user.p1.name
+			user.p1.name = name
+			user.p1.pokeid = pokeid
+			user.p1.hp = hp
+			user.p1.poketype = poketype
+			user.p1.atk1power = atk1power
+			user.p1.atk2power = atk2power
+			user.p1.atk3power = atk3power
+			user.p1.atk4power = atk4power
+			user.p1.atk1name = atk1name
+			user.p1.atk2name = atk2name
+			user.p1.atk3name = atk3name
+			user.p1.atk4name = atk4name
+			user.p1.save()
+		elif 'p2' == 'p'+userpoke:
+			user = User.objects.get(id=user)
+			print '********', user.p2.name
+			user.p2.name = name
+			user.p2.pokeid = pokeid
+			user.p2.hp = hp
+			user.p2.poketype = poketype
+			user.p2.atk1power = atk1power
+			user.p2.atk2power = atk2power
+			user.p2.atk3power = atk3power
+			user.p2.atk4power = atk4power
+			user.p2.atk1name = atk1name
+			user.p2.atk2name = atk2name
+			user.p2.atk3name = atk3name
+			user.p2.atk4name = atk4name
+			user.p2.save()
+		elif 'p3' == 'p'+userpoke:
+			user = User.objects.get(id=user)
+			print '********', user.p3.name
+			user.p3.name = name
+			user.p3.pokeid = pokeid
+			user.p3.hp = hp
+			user.p3.poketype = poketype
+			user.p3.atk1power = atk1power
+			user.p3.atk2power = atk2power
+			user.p3.atk3power = atk3power
+			user.p3.atk4power = atk4power
+			user.p3.atk1name = atk1name
+			user.p3.atk2name = atk2name
+			user.p3.atk3name = atk3name
+			user.p3.atk4name = atk4name
+			user.p3.save()
+
+		return True
 
 class Pokemon(models.Model):
 	name = models.CharField(max_length=250)
