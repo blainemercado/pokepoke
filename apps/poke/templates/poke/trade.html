@@ -100,7 +100,11 @@ $(document).ready(function(){
 			<p>Selection:</p>
 			<div id="container3" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
 			</div>
-			
+			<div id='messages'> 
+				{%for message in messages%}
+					{{message}}
+				{%endfor%}
+			</div>
 			<p>Roster:</p>
 			<div id="container7">
 				<div id="container4" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
@@ -122,11 +126,7 @@ $(document).ready(function(){
 					
 				</form>
 			</div>	
-			<div id='messages'> 
-				{%for message in messages%}
-					{{message}}
-				{%endfor%}
-			</div>
+			
 		</div>
 	</div>		
 </body>

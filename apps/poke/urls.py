@@ -23,5 +23,7 @@ urlpatterns = [
 	url(r'^rivals$', views.rivals, name = 'poke_rivals'),
 	url(r'^logout$', views.logout, name = 'poke_logout'),
 	url(r'^papi/trade$', views.papitrade, name = 'poke_papitrade'),
-	url(r'^papi/pokedextrade/(?P<id>\d+)$', views.pokedextrade, name = 'poke_pokedextrade')
+	url(r'^papi/pokedextrade/(?P<id>\d+)$', views.pokedextrade, name = 'poke_pokedextrade'),
+	url(r'^delete$', views.delete, name = 'poke_delete'),
+	url(r'^remove$', views.remove, name = 'poke_remove')
 ]

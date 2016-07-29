@@ -469,3 +469,17 @@ def logout(request):
 		del request.session[key]
 
 	return redirect('/')
+
+def delete(request):
+	return render(request, 'poke/delete.html')
+
+def remove(request):
+	User.objects.get(id=request.session['id']).delete()
+	for key in request.session.keys():
+		del request.session[key]
+	return redirect('/')
+
+
+
+
+

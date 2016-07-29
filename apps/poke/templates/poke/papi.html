@@ -9,7 +9,6 @@
 $(document).ready(function(){
 		console.log("test");
 
-
 		$.get("http://pokeapi.co/api/v2/pokedex/2", function(res){
 				
 				var max= {{user.lvl}}
@@ -78,8 +77,8 @@ $(document).ready(function(){
 					})
 				}
 				console.log(res);
-			},"json");
-		});
+		},"json");
+	});
 
 </script>	
 </head>

@@ -22,6 +22,7 @@
 			<p> Attack Record: {{user.win}}-{{user.lose}}</p>
 			{%if request.session.id == user.id%}
 			<a href="/rivals">Scout Rivals</a>
+			<a href="/delete">Delete Your Account</a>
 			{%endif%}
 			{%if request.session.id != user.id%}
 			<a href="/">Challenge Rival</a>
