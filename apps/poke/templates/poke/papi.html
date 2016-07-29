@@ -3,7 +3,8 @@
 	<meta charset="utf-8">
 	<title>Pokemon API</title>
 	{% load staticfiles %}	
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+	<link rel="stylesheet" type="text/css" href="{% static 'poke/css/trade.css' %}">
 <script>
 $(document).ready(function(){
 		console.log("test");
@@ -70,7 +71,7 @@ $(document).ready(function(){
 							  	"<input type= 'hidden' name= 'atk3name' value=" + atk3name + ">" +
 							  	"<input type= 'hidden' name= 'atk4name' value=" + atk4name + ">" +
 							  	"<input type= 'hidden' name= 'pokeid' value=" + pokemon + ">" +
-								"<input type= 'submit' value= 'Choose this pokemon'>" +
+								"<input class='submit' type= 'submit' value= 'Choose this pokemon'>" +
 								"{% csrf_token %}" +
 								"</form>")
 						})  
@@ -83,31 +84,41 @@ $(document).ready(function(){
 </script>	
 </head>
 <body>
-	<div id="container1" style="border:3px solid black; width:1000px; height: 200px" >
-	</div>
-	<div id="container2">
-	</div>
-	<p>Selection:</p>
-	<div id="container3" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
-	</div>
-	<div id='form'>
+	<div id="container">
+		<div id="nav">
+			<a id="home" href="{%url 'poke_dashboard' %}">Dashboard</a>
+			<div id="logout">
+				<a href="{%url 'poke_logout' %}">Logout</a>
+			</div>
+		</div>
+		<div id="container1" style="border:3px solid black; height: 200px" >
+		</div>
+		<div id="container2">
+		</div>
+		<div id="right">
+			<p>Selection:</p>
+			<div id="container3" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
+			</div>
+			<div id='form'>
 
-	</div>
-	<p>Roster:</p>
-	<div id="container4" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
-		<img src="{% static p1 %}" alt="Pokemon character" style="height: 120px; width: 150px;">
-	</div>
-	<div id="container5" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
-		<img src="{% static p2 %}" alt="Pokemon character" style="height: 120px; width: 150px;">
-	</div>
-	<div id="container6" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
-		<img src="{% static p3 %}" alt="Pokemon character" style="height: 120px; width: 150px;">
-	</div>
-		
-	<div id='messages'> 
-		{%for message in messages%}
-			{{message}}
-		{%endfor%}
-	</div>		
+			</div>
+			<p>Roster:</p>
+			<div id="container4" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
+				<img src="{% static p1 %}" alt="Pokemon character" style="height: 120px; width: 150px;">
+			</div>
+			<div id="container5" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
+				<img src="{% static p2 %}" alt="Pokemon character" style="height: 120px; width: 150px;">
+			</div>
+			<div id="container6" style="border:3px solid black; width:150px; height: 120px; display: inline-block;" >
+				<img src="{% static p3 %}" alt="Pokemon character" style="height: 120px; width: 150px;">
+			</div>
+				
+			<div id='messages'> 
+				{%for message in messages%}
+					{{message}}
+				{%endfor%}
+			</div>	
+		</div>
+	</div>	
 </body>
 </html>
