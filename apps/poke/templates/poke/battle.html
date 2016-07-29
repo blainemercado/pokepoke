@@ -5,10 +5,13 @@
 	<title>Battlefield</title>
 	{% load staticfiles %}
 	<link rel="stylesheet" type="text/css" href="static/poke/css/battle.css">
+	 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 	<script src= 'static/poke/jquery/jquery-3.0.0.js'></script>
 	<script type="text/javascript">
 
 	$(document).ready(function(){
+
 		$('[name=atk1').on("click", function(){
 			$('#userATK').html("<h1>{{ request.session.initPokemon.name }} uses {{ request.session.initPokemon.atk1name }}</h1>");
 			
@@ -69,7 +72,14 @@
 <div id="container">
 	<div id="opponent">
 		<p>{{ request.session.oppPoke1.name }}</p>
-		<p>HP: {{ request.session.currentHP }}</p>
+		<!-- <p>HP: {{ request.session.currentHP }}</p> -->
+
+		<div class="progress">
+  		<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="{{request.session.oppPoke1.hp}}" style="width: {{ request.session.healthopp }}%;">
+    		<span class= "sr-only">{{ request.session.healthopp }}% health</span>
+  		</div>
+		</div>
+
 		{% if request.session.oppPoke1 == opponentPoke1 %}
 			<img src="{% static opp1 %}" alt="Pokemon character">
 		{% endif %}
@@ -84,8 +94,14 @@
 	<div id="user">
 
 		<p>{{ request.session.initPokemon.name }}</p>
-		<p>HP: {{ request.session.MyHP }}</p>
-		<!-- <img src="static/poke/images/pokemon1.png"> -->
+		<!-- <p>HP: {{ request.session.MyHP }}</p> -->
+
+		<div class="progress">
+	  		<div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="{{request.session.initPokemon.hp}}" style="width: {{ request.session.health }}%;">
+	  		<span> {{ request.session.health }}% health </span>
+				<!--   <span class="sr-only">60% Complete</span>--> 
+			</div>
+		</div>
 
 		{% if request.session.initPokemon == userPoke1 %}
 			<img src="{% static p1 %}" alt="Pokemon character">
@@ -96,29 +112,25 @@
 		{% if request.session.initPokemon == userPoke3 %}
 			<img src="{% static p3 %}" alt="Pokemon character">
 		{% endif %}
+		<div id="attackButtons">
+			<form id="pokemonAttacks" action="/atk" method="post">
+			{%csrf_token%}
+				<input type="submit" name="atk1" value="{{ request.session.initPokemon.atk1name }}">
 
-		<form id="pokemonAttacks" action="/atk" method="post">
-		{%csrf_token%}
-			<input type="submit" name="atk1" value="{{ request.session.initPokemon.atk1name }}: {{ request.session.initPokemon.atk1power }} attack power">
-	<br>
-			<input type="submit" name="atk2" value="{{ request.session.initPokemon.atk2name }}: {{ request.session.initPokemon.atk2power }} attack power">
-	<br>
-			<input type="submit" name="atk3" value="{{ request.session.initPokemon.atk3name }}: {{ request.session.initPokemon.atk3power }} attack power">
-	<br>
-			<input type="submit" name="atk4" value="{{ request.session.initPokemon.atk4name }}: {{ request.session.initPokemon.atk4power }} attack power">
+				<input type="submit" name="atk2" value="{{ request.session.initPokemon.atk2name }}">
+		<br>
+				<input type="submit" name="atk3" value="{{ request.session.initPokemon.atk3name }}">
 
-		</form>
+				<input type="submit" name="atk4" value="{{ request.session.initPokemon.atk4name }}">
 
+			</form>
+		</div>
 	</div>
 
 	<div id="userATK">
 	</div>
 	<div id="opponentATK">
 	<h1>{{ request.session.oppPoke1.name }} used {{ request.session.oppATKchoice }}</h1>
-	</div>
-	<div id="otherPokemon2">
-	</div>
-	<div id="otherPokemon3">
 	</div>
 </div>
 

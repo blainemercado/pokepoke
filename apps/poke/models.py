@@ -166,6 +166,8 @@ class User(models.Model):
 	p1 = models.ForeignKey(Pokemon, null=True)
 	p2 = models.ForeignKey(Pokemon, related_name="Pokemon2", null=True)
 	p3 = models.ForeignKey(Pokemon, related_name="Pokemon3", null=True)
+	win=models.PositiveSmallIntegerField(default=0)
+	lose=models.PositiveSmallIntegerField(default=0)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 	userManager = UserManager()

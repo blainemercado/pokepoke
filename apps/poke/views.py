@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from random import randint
 
+import math
 import re
 
 def index(request):
@@ -15,7 +16,9 @@ def preprebattle(request, id):
 	return redirect('/prebattle')
 
 def prebattle(request):
-
+	request.session['health']= 100
+	request.session['healthopp']= 100
+	print "healthopp to start is", request.session['healthopp']
 	request.session['oppATKchoice'] = "TAUNT"
 
 	request.session['count'] = 1
@@ -117,6 +120,12 @@ def battle(request):
 	user = User.objects.filter(id=user_id)
 	Opp_id = request.session['opponent_id']
 	opponent = User.objects.filter(id=Opp_id)
+	currenthp= request.session['MyHP']
+	maxhp= request.session['initPokemon'].hp
+	request.session['health']= int(math.ceil((currenthp/float(maxhp)) *100))
+	currenthpopp= request.session['currentHP']
+	maxhpopp= request.session['initPokemon'].hp
+	request.session['healthopp']= int(math.ceil((currenthpopp/float(maxhpopp)) *100))
 
 	context = {
 		"user": User.userManager.get(id=user_id),
@@ -142,14 +151,44 @@ def userATK(request):
 
 	user_id = request.session['id']
 
+	TypeMatrix = [
+	[1,1,1,1,1,.5,1,0,1,1,1,1,1,1,1],
+	[2,1,.5,.5,2,.5,0,1,1,1,1,.5,2,1],
+	[1,2,1,1,1,.5,2,1,1,1,2,.5,1,1,1],
+	[1,1,1,.5,.5,.5,2,.5,1,1,2,1,1,1,1],
+	[1,1,0,2,1,2,5,1,2,1,.5,2,1,1,1],
+	[1,.5,2,1,.5,1,2,1,2,1,1,1,1,2,1],
+	[1,.5,.5,2,1,1,1,.5,.5,1,2,1,2,1,1],
+	[0,1,1,1,1,1,1,2,1,1,1,1,0,1,1],
+	[1,1,1,1,1,.5,2,1,.5,.5,2,1,1,2,.5],
+	[1,1,1,1,2,2,1,1,2,.5,.5,1,1,1,.5],
+	[1,1,.5,.5,2,2,.5,1,.5,2,.5,1,1,1,.5],
+	[1,1,2,1,0,1,1,1,1,2,.5,.5,1,1,.5],
+	[1,2,1,2,1,1,1,1,1,1,1,1,.5,1,1],
+	[1,1,2,1,2,1,1,1,1,.5,2,1,1,.5,2],
+	[1,1,1,1,1,1,1,1,1,1,1,1,1,1,2]
+	]
+
+	Type = {'normal':0, 'fight':1, 'flying':2, 'poison':3, 'ground':4, 'rock':5, 'bug':6, 'ghost':7, 'fire':8, 'water':9, 'grass':10, 'electric':11, 'psychic':12, 'ice':13, 'dragon':14}
+
+	request.session['AttackMultiplier'] = TypeMatrix[Type[request.session['initPokemon'].poketype]][Type[request.session['oppPoke1'].poketype]]
+	request.session['DefenseMultiplier'] = TypeMatrix[Type[request.session['oppPoke1'].poketype]][Type[request.session['initPokemon'].poketype]]
+	
+	print "******************"
+	print ('Attack Multiplier is:', request.session['AttackMultiplier'])
+	print ('Defense Multiplier is:', request.session['DefenseMultiplier'])
+	print "******************"
+
 	print request.session['oppPoke1'].name
 	attack = User.userManager.get(id=request.session['id']).p1.atk1power
 	print ("Attack power is:", attack)
 
-
 	print request.session['count']
 	if request.session['currentHP'] > 0:
-		request.session['currentHP'] -= (randint(0, attack/2))
+		request.session['currentHP'] -= (request.session['AttackMultiplier'] * randint(0, attack))
+		request.session['currentHP'] = int(math.floor(request.session['currentHP']))
+		if request.session['currentHP'] < 0:
+			request.session['currentHP'] = 0
 		return redirect('/OppATK')
 
 	elif request.session['currentHP'] <= 0 and request.session['count'] == 1:
@@ -197,7 +236,10 @@ def OppATK(request):
 		request.session['oppATKchoice'] = request.session['oppPoke1'].atk4name
 
 	if request.session['MyHP'] > 0:
-		request.session['MyHP'] -= (randint(0, theirAttack/2))
+		request.session['MyHP'] -= (request.session['DefenseMultiplier'] * randint(0, theirAttack))
+		request.session['MyHP'] = int(math.floor(request.session['MyHP']))
+		if request.session['MyHP'] < 0:
+			request.session['MyHP'] = 0
 
 	elif request.session['MyHP'] <= 0 and request.session['OpCount'] == 1:
 		request.session['MyHP'] = request.session['secondPokemon'].hp
@@ -214,7 +256,7 @@ def OppATK(request):
 		return redirect('/battle')
 
 	elif request.session['MyHP'] <= 0 and request.session['OpCount'] == 3:
-		return redirect('/youlose')
+		return redirect('/loselevel')
 
 	print ("my HP", request.session['MyHP'])
 
@@ -388,11 +430,20 @@ def dashboard(request):
 
 def gainlevel(request):
 	user=User.objects.get(id=request.session['id'])
-	print user.lvl
 	user.lvl= user.lvl+1
-	print user.lvl
+	user.win=user.win+1
+	print user.win
 	user.save()
 	return redirect('/youwon')
+
+def loselevel(request):
+	user=User.objects.get(id=request.session['id'])
+	user.lose=user.lose+1
+	print user.lose
+	user.save()
+
+	return redirect('/youlose')
+
 def youwon(request):
 	
 	context={

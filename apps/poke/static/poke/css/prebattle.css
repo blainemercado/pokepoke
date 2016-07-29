@@ -1,3 +1,9 @@
+#container{
+	background-image: url("../../../static/poke/images/pokegym.png");
+	width: 850px;
+	height:700px;
+}
+
 #nav {
 		border: 2px solid darkgrey;
 		height: 30px;
@@ -20,18 +26,29 @@
 			color: darkgreen;
 		}
 
+#pokemon{
+	margin-left: 240px;
+	padding-top: 105px;
+}
 div#Pokemon1, div#Pokemon2, div#Pokemon3{
 	display: inline-block;
 	vertical-align: top;
-	margin-right: 10px;
+	/*margin-right: 10px;*/
 }
 div#initPokemon{
 	margin-top: 10px;
 	padding: 10px;
-	border: 2px black solid;
+	border: 2px black dotted;
 	display: inline-block;
+	margin-left: 560px;
+	margin-top:50px;
+
 }
 	div#initPokemon u{
 		font-size: 16px;
 		font-weight: bold;
 	}
+
+input{
+	margin-left: 30px;
+}	
