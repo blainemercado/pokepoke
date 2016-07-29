@@ -11,7 +11,7 @@
 }
 #container {
 	width: 900px;
-	height: 1000px;
+	min-height: 1000px;
 	background: #fbcecd; /* For browsers that do not support gradients */
 	background: -webkit-radial-gradient(#fbcecd, #7dc56c); /* Safari 5.1 to 6.0 */
 	background: -o-radial-gradient(#fbcecd, #7dc56c); /* For Opera 11.6 to 12.0 */

@@ -1,6 +1,7 @@
 *{
 	margin: 0px;
 	border: 0px;
+	/*outline: 1px dotted red;*/
 }
 div#container{
 	background-image: url("../../../static/poke/images/background.png");
@@ -29,15 +30,16 @@ div#opponent{
 	margin-left:600px;
 }
 div#userATK{
-	height: 100px;
-	width: 200px;
+	min-height: 250px;
+	max-width: 200px;
 	color: green;
 	margin-left: 30px;
+	margin-top: 20px;
 }
 div#opponentATK{
 	height: 100px;
 	width: 200px;
-	margin-left: 70px;
+	margin-left: 0px;
 	color: red;
 }
 form#pokemonAttacks > input {
@@ -46,7 +48,10 @@ form#pokemonAttacks > input {
 	height: 25px;
 	width: 100px;
 }
-div#user, div#userATK, div#opponentATK{
+#middlecol {
+	height: 366px;
+}
+div#user, div#middlecol, div#opponentATK{
 	display: inline-block;
 	vertical-align: top;
 }
@@ -58,7 +63,10 @@ img{
 	height: 200px;
 	width: 200px;
 }
-
+.smallicon {
+	width: 100px;
+	height: 100px;
+}
 #nav {
 		border: 2px solid darkgrey;
 		height: 30px;

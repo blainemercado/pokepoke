@@ -1,3 +1,16 @@
+
+#container {
+	width: 900px;
+	min-height: 1000px;
+	text-align: center;
+}
+h1 {
+	text-align: center;
+	margin-bottom: 10px;
+	font-family: fantasy;
+	color: darkred;
+	font-weight: bold;
+}		
 #nav {
 		border: 2px solid darkgrey;
 		height: 30px;
@@ -19,3 +32,19 @@
 			font-size: 20px;
 			color: darkgreen;
 		}
+.table {
+	width: 870px;
+}
+	.table th {
+		font-family:fantasy;
+		font-size: 22px;
+		color: darkred;
+	}
+	.table td {
+		font-family: fantasy;
+		font-size: 16px;
+		color: darkgreen;
+	}
+	.table a {
+		color: darkgreen;
+	}

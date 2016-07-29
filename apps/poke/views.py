@@ -20,7 +20,8 @@ def prebattle(request):
 	request.session['healthopp']= 100
 	print "healthopp to start is", request.session['healthopp']
 	request.session['oppATKchoice'] = "TAUNT"
-
+	request.session['deadpoke1'] = 0
+	request.session['deadpoke2'] = 0
 	request.session['count'] = 1
 	request.session['OpCount'] = 1
 	print request.session['opponent_id']
@@ -142,7 +143,8 @@ def battle(request):
 		"opponentPoke3": User.userManager.get(id=request.session['opponent_id']).p3,
 		"opp1": "poke/images/" + str(opponent[0].p1.pokeid) + ".png",
 		"opp2": "poke/images/" + str(opponent[0].p2.pokeid) + ".png",
-		"opp3": "poke/images/" + str(opponent[0].p3.pokeid) + ".png",	
+		"opp3": "poke/images/" + str(opponent[0].p3.pokeid) + ".png",
+		"pokeball": "poke/images/empty.png"	
 	}
 
 	return render(request, 'poke/battle.html', context)
@@ -187,26 +189,25 @@ def userATK(request):
 	if request.session['currentHP'] > 0:
 		request.session['currentHP'] -= (request.session['AttackMultiplier'] * randint(0, attack))
 		request.session['currentHP'] = int(math.floor(request.session['currentHP']))
+
 		if request.session['currentHP'] < 0:
 			request.session['currentHP'] = 0
+			if request.session['currentHP'] <= 0 and request.session['count'] == 1:
+				request.session['currentHP'] = request.session['oppPoke2'].hp
+				request.session['count'] = 2
+				request.session['oppPoke1'] = request.session['oppPoke2']
+				print ("opponent HP:", request.session['currentHP'], request.session['oppPoke1'].name)
+				return redirect('/OppATK')
+			elif request.session['currentHP'] <= 0 and request.session['count'] == 2:
+				request.session['currentHP'] = request.session['oppPoke3'].hp
+				request.session['count'] = 3
+				request.session['oppPoke1'] = request.session['oppPoke3']
+				print ("opponent HP:", request.session['currentHP'], request.session['oppPoke1'].name)
+				return redirect('/OppATK')
+			elif request.session['currentHP'] <= 0 and request.session['count'] == 3:
+				return redirect('/gainlevel')
+				return redirect('/OppATK')
 		return redirect('/OppATK')
-
-	elif request.session['currentHP'] <= 0 and request.session['count'] == 1:
-		request.session['currentHP'] = request.session['oppPoke2'].hp
-		request.session['count'] = 2
-		request.session['oppPoke1'] = request.session['oppPoke2']
-		print ("opponent HP:", request.session['currentHP'], request.session['oppPoke1'].name)
-		return redirect('/OppATK')
-
-	elif request.session['currentHP'] <= 0 and request.session['count'] == 2:
-		request.session['currentHP'] = request.session['oppPoke3'].hp
-		request.session['count'] = 3
-		request.session['oppPoke1'] = request.session['oppPoke3']
-		print ("opponent HP:", request.session['currentHP'], request.session['oppPoke1'].name)
-		return redirect('/OppATK')
-
-	elif request.session['currentHP'] <= 0 and request.session['count'] == 3:
-		return redirect('/gainlevel')
 
 def OppATK(request):
 
@@ -239,24 +240,23 @@ def OppATK(request):
 		request.session['MyHP'] -= (request.session['DefenseMultiplier'] * randint(0, theirAttack))
 		request.session['MyHP'] = int(math.floor(request.session['MyHP']))
 		if request.session['MyHP'] < 0:
-			request.session['MyHP'] = 0
-
-	elif request.session['MyHP'] <= 0 and request.session['OpCount'] == 1:
-		request.session['MyHP'] = request.session['secondPokemon'].hp
-		request.session['OpCount'] = 2
-		request.session['initPokemon'] = request.session['secondPokemon']
-		print ("my HP:", request.session['MyHP'], request.session['initPokemon'].name)
-		return redirect('/battle')
-
-	elif request.session['MyHP'] <= 0 and request.session['OpCount'] == 2:
-		request.session['MyHP'] = request.session['thirdPokemon'].hp
-		request.session['OpCount'] = 3
-		request.session['initPokemon'] = request.session['thirdPokemon']
-		print ("my HP:", request.session['MyHP'], request.session['initPokemon'].name)
-		return redirect('/battle')
-
-	elif request.session['MyHP'] <= 0 and request.session['OpCount'] == 3:
-		return redirect('/loselevel')
+			request.session['MyHP'] = 0	
+			if request.session['MyHP'] == 0 and request.session['OpCount'] == 1:
+				request.session['MyHP'] = request.session['secondPokemon'].hp
+				request.session['OpCount'] = 2
+				request.session['deadpoke1'] = request.session['initPokemon'] 
+				request.session['initPokemon'] = request.session['secondPokemon']
+				print ("my HP:", request.session['MyHP'], request.session['initPokemon'].name)
+				return redirect('/battle')
+			elif request.session['MyHP'] == 0 and request.session['OpCount'] == 2:
+				request.session['MyHP'] = request.session['thirdPokemon'].hp
+				request.session['OpCount'] = 3
+				request.session['deadpoke2'] = request.session['initPokemon']
+				request.session['initPokemon'] = request.session['thirdPokemon']
+				print ("my HP:", request.session['MyHP'], request.session['initPokemon'].name)
+				return redirect('/battle')
+			elif request.session['MyHP'] == 0 and request.session['OpCount'] == 3:
+				return redirect('/loselevel')
 
 	print ("my HP", request.session['MyHP'])
 
@@ -342,7 +342,7 @@ def papitrade(request):
 	elif user[0].p1 != None and user[0].p2 != None and user[0].p3 == None:
 		context = {
 			"user": User.objects.get(id=request.session['id']),
-			"p1": "poke/images/" + str(user[0].p1.pokeid) + ".png",
+			"p1": "poke	ges/" + str(user[0].p1.pokeid) + ".png",
 			"p2": "poke/images/" + str(user[0].p2.pokeid) + ".png",
 			"p3": "poke/images/empty.png"
 		}

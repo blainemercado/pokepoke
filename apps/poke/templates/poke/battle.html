@@ -126,8 +126,26 @@
 			</form>
 		</div>
 	</div>
-
-	<div id="userATK">
+	<div id="middlecol">
+		<div id="userATK">
+		</div>
+		<div id="icons">
+			{% if request.session.initPokemon != userPoke1 %}
+				{% if userPoke1 != request.session.deadpoke1 and userPoke1 !=  request.session.deadpoke2  %}
+					<img class="smallicon" src="{% static p1 %}" alt="Pokemon character">
+				{% endif %}
+			{% endif %}
+			{% if request.session.initPokemon != userPoke2 %}
+				{% if userPoke2 != request.session.deadpoke1 and userPoke2 !=  request.session.deadpoke2  %}
+					<img class="smallicon" src="{% static p2 %}" alt="Pokemon character">
+				{% endif %}
+			{% endif %}
+			{% if request.session.initPokemon != userPoke3 %}
+				{% if userPoke3 != request.session.deadpoke1 and userPoke3 !=  request.session.deadpoke2  %}
+					<img class="smallicon" src="{% static p3 %}" alt="Pokemon character">
+				{% endif %}
+			{% endif %}
+		</div>
 	</div>
 	<div id="opponentATK">
 	<h1>{{ request.session.oppPoke1.name }} used {{ request.session.oppATKchoice }}</h1>
