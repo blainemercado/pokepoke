@@ -19,7 +19,7 @@
 		<div id="userInfo">
 			<h2>{{user.username}}</h2>
 			<p>Level: {{user.lvl}}</p>
-			<p>Win/Loss: Not yet added</p>
+			<p> Attack Record: {{user.win}}-{{user.lose}}</p>
 			{%if request.session.id == user.id%}
 			<a href="*****URL*****">Swap Pokemon</a>
 			<a href="/rivals">Scout Rivals</a>

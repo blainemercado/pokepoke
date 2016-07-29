@@ -20,8 +20,9 @@
 		<a href="/">Logout</a>
 	</div>
 </div>
+<div id='container'>
 <div id="pokemon">
-	<p><h1>{{ user.username }}, choose your first pokemon!</h1></p>
+	<p><h1>{{ user.username }}, Choose Your First Pokemon!</h1></p>
 	<div id="Pokemon1">
 		<form action="prebattlepick" method="post">
 		{% csrf_token %}
@@ -60,6 +61,7 @@
 <form action="/battle" method="get">
 	<input type="submit" value="FIGHT!">
 </form>
+</div>
 </div>
 </body>
 </html>
