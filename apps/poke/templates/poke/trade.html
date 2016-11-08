@@ -19,7 +19,7 @@ $(document).ready(function(){
 
 				for (var i=0; i<max*5+5; i=i+3){	
 					id=res.pokemon_entries[i].entry_number;
-					string = "<img src='http://pokeapi.co/media/img/" + id + ".png' id="+ id +">";
+					string = "<img src='../../static/poke/images/" + id + ".png' id="+ id +">";
 					$('#container2').append(string);
 					var string3="#" + id
 					$(string3).on('click',function(){
@@ -55,7 +55,7 @@ $(document).ready(function(){
 						})
 						$.get("https://pokeapi.co/api/v2/pokedex/2", function(res){
 							console.log(pokemon);
-							image= "<img src='http://pokeapi.co/media/img/" + pokemon + ".png' id="+ id +">";
+							image= "<img src='../../static/poke/images/" + pokemon + ".png' id="+ id +">";
 							$('#container3').html(image);
 							$('.form').html(
 							  	"<input type= 'hidden' name= 'name' value=" + name_value + "> " +
